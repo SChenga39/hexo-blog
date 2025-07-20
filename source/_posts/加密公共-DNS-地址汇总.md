@@ -28,11 +28,13 @@ tags: [DNS, 隐私保护]
 
 ### IPv6 DNS
 
-IPv4 到 IPv6 时代的过渡 DNS，解析准确度与阿里 DNS 相当
+2025-07-20 更新：已不可用
 
-- DoH：不支持 DoH3
-  - <https://dns.ipv6dns.com/dns-query>
-- DoT：`dns.ipv6dns.com`
+~~IPv4 到 IPv6 时代的过渡 DNS，解析准确度与阿里 DNS 相当~~
+
+- ~~DoH：不支持 DoH3~~
+  - ~~<https://dns.ipv6dns.com/dns-query>~~
+- ~~DoT：`dns.ipv6dns.com`~~
 
 ### Easymos DNS
 
@@ -43,14 +45,16 @@ IPv4 到 IPv6 时代的过渡 DNS，解析准确度与阿里 DNS 相当
 
 ### iQDNS
 
-隐私至上的公益 DNS，可在 <https://iqiq.io/servers.html> 查看完整服务器列表
+2025-07-20 更新：已不可用
 
-已知缺点：大概率会将 bilibili 负载均衡域名 `i0.hdslb.com` 解析到香港导致大陆 bilibili 图片加载缓慢
+~~隐私至上的公益 DNS，可在 <https://iqiq.io/servers.html> 查看完整服务器列表~~
 
-- DoH：不支持 DoH3
-  - <https://cn-east.iqiqzz.com/dns-query>
-- DoT：`cn-east.iqiqzz.com`
-- DoQ：`cn-east.ovo.glass`
+~~已知缺点：大概率会将 bilibili 负载均衡域名 `i0.hdslb.com` 解析到香港导致大陆 bilibili 图片加载缓慢~~
+
+- ~~DoH：不支持 DoH3~~
+  - ~~<https://cn-east.iqiqzz.com/dns-query>~~
+- ~~DoT：`cn-east.iqiqzz.com`~~
+- ~~DoQ：`cn-east.ovo.glass`~~
 
 ### 清华 Tuna DNS
 
