@@ -1,0 +1,46 @@
+name: Build and Deploy Hexo Blog
+
+# 触发条件：当推送到 master 分支时触发
+on:
+  push:
+    branches:
+      - master # 或者你的主分支名，如 master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 使用最新的 Ubuntu 系统作为运行环境
+
+    steps:
+      # 步骤1：检出你的源码
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # 步骤2：设置 Node.js 环境
+      # Hexo 依赖 Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # 你可以根据需要选择 Node.js 版本，16 或 18 较稳定
+          cache: "npm" # 缓存 npm 依赖，加快后续构建速度
+
+      # 步骤3：安装项目依赖
+      - name: Install Dependencies
+        run: npm install
+
+      # 步骤4：生成静态文件
+      - name: Generate static files
+        run: hexo generate
+
+      # 步骤5：部署到 gh-pages 分支
+      # 使用一个广受欢迎的 action 来处理部署
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # GITHUB_TOKEN 是由 GitHub Actions 自动创建的，用于授权推送到你的仓库
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # public_dir 是 Hexo 生成静态文件的目录
+          publish_dir: ./public
+          # publish_branch 是要部署到的分支
+          publish_branch: gh-pages
+          # 可选：自定义提交信息
+          commit_message: "Deploy: ${{ github.event.head_commit.message }}"
