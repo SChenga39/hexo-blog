@@ -25,7 +25,7 @@ jobs:
 
       # 步骤3：安装项目依赖
       - name: Install Dependencies
-        run: npm install
+        run: npm install hexo && npm install
 
       # 步骤4：生成静态文件
       - name: Generate static files
