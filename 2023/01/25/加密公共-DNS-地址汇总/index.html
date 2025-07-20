@@ -16,27 +16,23 @@
   <meta name="author" content="SChenga">
   <meta name="keywords" content="">
   
-    <meta name="description" content="WPD 是一款免费的 Windows 系统隐私设置工具，包含隐私管理、IP 拦截和 Appx 卸载等功能，通过调用系统自带 API 实现禁止相关隐私功能、阻止 Windows 遥测、关闭 Windows Defender 防火墙、阻止 Windows 更新等操作。 从 Windows 10 开始，操作系统对于个人数据的搜集能力大大加强。虽然微软保证不泄露个人信息，但是总让人不放心。如果你不想让微软">
+    <meta name="description" content="国内阿里支持 ECS，即使通过 DoH 访问仍然有污染  DoH：支持 DoH3 https:&#x2F;&#x2F;dns.alidns.com&#x2F;dns-query https:&#x2F;&#x2F;223.5.5.5&#x2F;dns-query https:&#x2F;&#x2F;223.6.6.6&#x2F;dns-query   DoT：dns.alidns.com  腾讯不完全支持 ECS，有些地址没有解析到最近的服务器  DoH：不支持 DoH3 https:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WPD：阻止 Windows 收集个人信息的利器">
-<meta property="og:url" content="https://schenga39.github.io/hexo-blog/2022/12/05/WPD%EF%BC%9A%E9%98%BB%E6%AD%A2-Windows-%E6%94%B6%E9%9B%86%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E5%88%A9%E5%99%A8/index.html">
+<meta property="og:title" content="加密公共 DNS 地址汇总">
+<meta property="og:url" content="https://schenga39.github.io/hexo-blog/2023/01/25/%E5%8A%A0%E5%AF%86%E5%85%AC%E5%85%B1-DNS-%E5%9C%B0%E5%9D%80%E6%B1%87%E6%80%BB/index.html">
 <meta property="og:site_name" content="SChenga&#39;s blog">
-<meta property="og:description" content="WPD 是一款免费的 Windows 系统隐私设置工具，包含隐私管理、IP 拦截和 Appx 卸载等功能，通过调用系统自带 API 实现禁止相关隐私功能、阻止 Windows 遥测、关闭 Windows Defender 防火墙、阻止 Windows 更新等操作。 从 Windows 10 开始，操作系统对于个人数据的搜集能力大大加强。虽然微软保证不泄露个人信息，但是总让人不放心。如果你不想让微软">
+<meta property="og:description" content="国内阿里支持 ECS，即使通过 DoH 访问仍然有污染  DoH：支持 DoH3 https:&#x2F;&#x2F;dns.alidns.com&#x2F;dns-query https:&#x2F;&#x2F;223.5.5.5&#x2F;dns-query https:&#x2F;&#x2F;223.6.6.6&#x2F;dns-query   DoT：dns.alidns.com  腾讯不完全支持 ECS，有些地址没有解析到最近的服务器  DoH：不支持 DoH3 https:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2022/12/05/WPD%EF%BC%9A%E9%98%BB%E6%AD%A2-Windows-%E6%94%B6%E9%9B%86%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E5%88%A9%E5%99%A8/1670228218069.png">
-<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2022/12/05/WPD%EF%BC%9A%E9%98%BB%E6%AD%A2-Windows-%E6%94%B6%E9%9B%86%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E5%88%A9%E5%99%A8/1670228850059.png">
-<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2022/12/05/WPD%EF%BC%9A%E9%98%BB%E6%AD%A2-Windows-%E6%94%B6%E9%9B%86%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E5%88%A9%E5%99%A8/1670229057887.png">
-<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2022/12/05/WPD%EF%BC%9A%E9%98%BB%E6%AD%A2-Windows-%E6%94%B6%E9%9B%86%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E5%88%A9%E5%99%A8/1670229454968.png">
-<meta property="article:published_time" content="2022-12-05T12:04:23.000Z">
-<meta property="article:modified_time" content="2025-07-20T06:25:04.592Z">
+<meta property="article:published_time" content="2023-01-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-20T06:25:04.599Z">
 <meta property="article:author" content="SChenga">
 <meta property="article:tag" content="隐私保护">
+<meta property="article:tag" content="DNS">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://schenga39.github.io/hexo-blog/2022/12/05/WPD%EF%BC%9A%E9%98%BB%E6%AD%A2-Windows-%E6%94%B6%E9%9B%86%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E7%9A%84%E5%88%A9%E5%99%A8/1670228218069.png">
   
   
   
-  <title>WPD：阻止 Windows 收集个人信息的利器 - SChenga&#39;s blog</title>
+  <title>加密公共 DNS 地址汇总 - SChenga&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">WPD：阻止 Windows 收集个人信息的利器</span>
+            <span id="subtitle">加密公共 DNS 地址汇总</span>
           
         </div>
 
@@ -213,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-05 20:04" pubdate>
-          2022年12月5日 晚上
+        <time datetime="2023-01-26 00:00" pubdate>
+          2023年1月26日 凌晨
         </time>
       </span>
     
@@ -225,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.7k 字
         
       </span>
     
@@ -236,7 +232,7 @@
         
         
         
-          10 分钟
+          15 分钟
         
       </span>
     
@@ -273,25 +269,128 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">WPD：阻止 Windows 收集个人信息的利器</h1>
+            <h1 id="seo-header">加密公共 DNS 地址汇总</h1>
             
             
               <div class="markdown-body">
                 
-                <p><a target="_blank" rel="noopener" href="https://wpd.app/">WPD</a> 是一款免费的 Windows 系统隐私设置工具，包含隐私管理、IP 拦截和 Appx 卸载等功能，通过调用系统自带 API 实现禁止相关隐私功能、阻止 Windows 遥测、关闭 Windows Defender 防火墙、阻止 Windows 更新等操作。</p>
-<p>从 Windows 10 开始，操作系统对于个人数据的搜集能力大大加强。虽然微软保证不泄露个人信息，但是总让人不放心。如果你不想让微软得到这些数据，可以在系统设置、服务、组策略、注册表等中关闭，WPD 实现了多种隐私设置一处管理。其可以实现的功能有：禁用 UAC、Windows Defender、隐私设置、监控计划任务等；移除 Cortana、One Drive、遥测与数据搜集、遥测主服务、位置服务、Wi-Fi 共享、广告 ID、Defender 数据报告、数据共享、DRM 互联网访问、系统反馈请求、系统搜索、IE&#x2F;Edge 请勿跟踪等。下面介绍主要的设置方法并分享我自己的设置。</p>
-<p><img src="1670228218069.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
-<p>软件主要分为 Privacy、Blocker 和 Apps 三个模块，主要用到前两个模块。</p>
-<h2 id="Privacy"><a href="#Privacy" class="headerlink" title="Privacy"></a>Privacy</h2><p>首先打开 Privacy 模块，可根据自己的需要关闭对应的选项。对于会影响系统功能的选项在右边会有黄色的感叹号按钮，点击可查看会影响系统的哪些功能。例如 Services 中的 <strong>[连接设备平台用户服务]</strong> 会影响系统的 <strong>夜灯</strong> 功能，<strong>Windows Push Notifications User Service</strong> 会影响操作中心和网络设置。</p>
-<p><img src="1670228850059.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
-<p>对于我来说，我保留了 <strong>Allow Clipboard History</strong>（使用剪切板历史，方便的小功能）和 <strong>Windows Push Notifications User Service</strong>。</p>
-<p><img src="1670229057887.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
-<h2 id="Blocker"><a href="#Blocker" class="headerlink" title="Blocker"></a>Blocker</h2><p>来到第二个大项 Blocker，这里建议使用 Windows Filtering Platform 进行过滤，以下是 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/win32/fwp/windows-filtering-platform-start-page">Microsoft 的描述</a>。</p>
-<blockquote>
-<p>Windows Filtering Platform (WFP) is a set of API and system services that provide a platform for creating network filtering applications. The WFP API allows developers to write code that interacts with the packet processing that takes place at several layers in the networking stack of the operating system.</p>
-</blockquote>
-<p>下面的三个规则为绿色则说明已开启屏蔽，分别对应着 <strong>Windows 遥测</strong>、<strong>第三方应用跟踪</strong> 和 <strong>阻止 Windows Update</strong>，推荐全部开启。</p>
-<p><img src="1670229454968.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+                <h2 id="国内"><a href="#国内" class="headerlink" title="国内"></a>国内</h2><h3 id="阿里"><a href="#阿里" class="headerlink" title="阿里"></a>阿里</h3><p>支持 ECS，即使通过 DoH 访问仍然有污染</p>
+<ul>
+<li>DoH：支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://dns.alidns.com/dns-query">https://dns.alidns.com/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://223.5.5.5/dns-query">https://223.5.5.5/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://223.6.6.6/dns-query">https://223.6.6.6/dns-query</a></li>
+</ul>
+</li>
+<li>DoT：<code>dns.alidns.com</code></li>
+</ul>
+<h3 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h3><p>不完全支持 ECS，有些地址没有解析到最近的服务器</p>
+<ul>
+<li>DoH：不支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://doh.pub/dns-query">https://doh.pub/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://120.53.53.53/dns-query">https://120.53.53.53/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://1.12.12.12/dns-query">https://1.12.12.12/dns-query</a></li>
+</ul>
+</li>
+<li>DoT：<code>dot.pub</code></li>
+</ul>
+<h3 id="IPv6-DNS"><a href="#IPv6-DNS" class="headerlink" title="IPv6 DNS"></a>IPv6 DNS</h3><p>2025-07-20 更新：已不可用</p>
+<p><del>IPv4 到 IPv6 时代的过渡 DNS，解析准确度与阿里 DNS 相当</del></p>
+<ul>
+<li><del>DoH：不支持 DoH3</del><ul>
+<li><del><a target="_blank" rel="noopener" href="https://dns.ipv6dns.com/dns-query">https://dns.ipv6dns.com/dns-query</a></del></li>
+</ul>
+</li>
+<li><del>DoT：<code>dns.ipv6dns.com</code></del></li>
+</ul>
+<h3 id="Easymos-DNS"><a href="#Easymos-DNS" class="headerlink" title="Easymos DNS"></a>Easymos DNS</h3><p>公益 DNS，上游使用国内的阿里和 DNSPod、国外的 Opendns 和 Google DNS 等，国内国外解析效果均可</p>
+<ul>
+<li>DoH：不支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://doh.apad.pro/dns-query">https://doh.apad.pro/dns-query</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="iQDNS"><a href="#iQDNS" class="headerlink" title="iQDNS"></a>iQDNS</h3><p>2025-07-20 更新：已不可用</p>
+<p><del>隐私至上的公益 DNS，可在 <a target="_blank" rel="noopener" href="https://iqiq.io/servers.html">https://iqiq.io/servers.html</a> 查看完整服务器列表</del></p>
+<p><del>已知缺点：大概率会将 bilibili 负载均衡域名 <code>i0.hdslb.com</code> 解析到香港导致大陆 bilibili 图片加载缓慢</del></p>
+<ul>
+<li><del>DoH：不支持 DoH3</del><ul>
+<li><del><a target="_blank" rel="noopener" href="https://cn-east.iqiqzz.com/dns-query">https://cn-east.iqiqzz.com/dns-query</a></del></li>
+</ul>
+</li>
+<li><del>DoT：<code>cn-east.iqiqzz.com</code></del></li>
+<li><del>DoQ：<code>cn-east.ovo.glass</code></del></li>
+</ul>
+<h3 id="清华-Tuna-DNS"><a href="#清华-Tuna-DNS" class="headerlink" title="清华 Tuna DNS"></a>清华 Tuna DNS</h3><p>不支持 ECS，大多数域名都会解析到北京附近</p>
+<ul>
+<li>DoH：不支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://101.6.6.6:8443/dns-query">https://101.6.6.6:8443/dns-query</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h2><h3 id="Google-DNS"><a href="#Google-DNS" class="headerlink" title="Google DNS"></a>Google DNS</h3><p>支持 ECS</p>
+<ul>
+<li>DoH：支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://dns.google/dns-query">https://dns.google/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://8.8.8.8/dns-query">https://8.8.8.8/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://8.8.4.4/dns-query">https://8.8.4.4/dns-query</a></li>
+</ul>
+</li>
+<li>DoT：<code>dns.google</code></li>
+</ul>
+<h3 id="Cloudflare-DNS"><a href="#Cloudflare-DNS" class="headerlink" title="Cloudflare DNS"></a>Cloudflare DNS</h3><p>注重隐私，不支持 ECS</p>
+<ul>
+<li>DoH：支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://1dot1dot1dot1.cloudflare-dns.com/">https://1dot1dot1dot1.cloudflare-dns.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://1.1.1.1/dns-query">https://1.1.1.1/dns-query</a></li>
+<li><a target="_blank" rel="noopener" href="https://1.0.0.1/dns-query">https://1.0.0.1/dns-query</a></li>
+</ul>
+</li>
+<li>DoT：<code>cloudflare-dns.com</code></li>
+</ul>
+<h3 id="OpenDNS"><a href="#OpenDNS" class="headerlink" title="OpenDNS"></a>OpenDNS</h3><p>支持 ECS</p>
+<ul>
+<li>DoH：不支持 DoH3<ul>
+<li><a target="_blank" rel="noopener" href="https://doh.opendns.com/dns-query">https://doh.opendns.com/dns-query</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="CleanBrowsing"><a href="#CleanBrowsing" class="headerlink" title="CleanBrowsing"></a>CleanBrowsing</h3><p>支持 ECS</p>
+<ul>
+<li>DoH<ul>
+<li>不屏蔽成人内容：<a target="_blank" rel="noopener" href="https://doh.cleanbrowsing.org/doh/security-filter">https://doh.cleanbrowsing.org/doh/security-filter</a></li>
+<li>屏蔽部分成人内容：<a target="_blank" rel="noopener" href="https://doh.cleanbrowsing.org/doh/adult-filter">https://doh.cleanbrowsing.org/doh/adult-filter</a></li>
+<li>屏蔽所有成人内容：<a target="_blank" rel="noopener" href="https://doh.cleanbrowsing.org/doh/family-filter">https://doh.cleanbrowsing.org/doh/family-filter</a></li>
+</ul>
+</li>
+<li>DoT<ul>
+<li>不屏蔽成人内容：<code>security-filter-dns.cleanbrowsing.org</code></li>
+<li>屏蔽部分成人内容：<code>adult-filter-dns.cleanbrowsing.org</code></li>
+<li>屏蔽所有成人内容：<code>family-filter-dns.cleanbrowsing.org</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="DNS-SB"><a href="#DNS-SB" class="headerlink" title="DNS.SB"></a>DNS.SB</h3><p>注重隐私保护，不支持 ECS</p>
+<ul>
+<li>DoH<ul>
+<li><a target="_blank" rel="noopener" href="https://doh.dns.sb/dns-query">https://doh.dns.sb/dns-query</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="AdGuard-DNS"><a href="#AdGuard-DNS" class="headerlink" title="AdGuard DNS"></a>AdGuard DNS</h3><ul>
+<li>DoH<ul>
+<li>过滤广告：<a target="_blank" rel="noopener" href="https://dns.adguard.com/dns-query">https://dns.adguard.com/dns-query</a></li>
+<li>家庭保护：<a target="_blank" rel="noopener" href="https://dns-family.adguard.com/dns-query">https://dns-family.adguard.com/dns-query</a></li>
+<li>不过滤：<a target="_blank" rel="noopener" href="https://dns-unfiltered.adguard.com/dns-query">https://dns-unfiltered.adguard.com/dns-query</a></li>
+</ul>
+</li>
+<li>DoT &#x2F; DoQ<ul>
+<li>过滤广告：<code>dns.adguard.com</code></li>
+<li>家庭保护：<code>dns-family.adguard.com</code></li>
+<li>不过滤：<code>dns-unfiltered.adguard.com</code></li>
+</ul>
+</li>
+</ul>
 
                 
               </div>
@@ -306,6 +405,8 @@
       
         <a href="../../../../tags/%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4/" class="print-no-link">#隐私保护</a>
       
+        <a href="../../../../tags/DNS/" class="print-no-link">#DNS</a>
+      
     </div>
   
 </div>
@@ -316,8 +417,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>WPD：阻止 Windows 收集个人信息的利器</div>
-      <div>https://schenga39.github.io/hexo-blog/2022/12/05/WPD：阻止-Windows-收集个人信息的利器/</div>
+      <div>加密公共 DNS 地址汇总</div>
+      <div>https://schenga39.github.io/hexo-blog/2023/01/25/加密公共-DNS-地址汇总/</div>
     </div>
     <div class="license-meta">
       
@@ -329,7 +430,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月5日</div>
+          <div>2023年1月26日</div>
         </div>
       
       
@@ -361,9 +462,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="../../31/Obsidian-DataviewJS-%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/" title="Obsidian DataviewJS 插件使用实例">
+                      <a href="../../../02/27/%E4%BA%91%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88%E7%9A%84%E9%80%89%E6%8B%A9/" title="云存储方案的选择">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Obsidian DataviewJS 插件使用实例</span>
+                        <span class="hidden-mobile">云存储方案的选择</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -371,8 +472,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="../../../11/22/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%BA%92%E8%81%94%E7%BD%91%E4%B8%8A%E4%BF%9D%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9A%90%E7%A7%81/" title="如何在互联网上保护自己的隐私">
-                        <span class="hidden-mobile">如何在互联网上保护自己的隐私</span>
+                      <a href="../../16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/" title="使用 Mosdns 搭建本地无污染 DNS">
+                        <span class="hidden-mobile">使用 Mosdns 搭建本地无污染 DNS</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

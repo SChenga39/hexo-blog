@@ -1,0 +1,984 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../../../img/fluid.png">
+  <link rel="icon" href="../../../../img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="SChenga">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言国内 DNS 污染越来越严重，特别是移动宽带，运营商分配的 DNS 在解析很多境外网站时会得到污染的结果或直接返回 127.0.0.1（例如 aka.ms）从而导致代理软件失效。虽然上述问题可以在代理软件中使用分流解决，但在本地搭建 DNS 不仅可以实现分流，更可实现部分广告过滤和缓存功能，极大提升了网页浏览体验。  无污染 DNS 实现原理全部 DNS 请求均使用境外无污染 DNS 会导致本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Mosdns 搭建本地无污染 DNS">
+<meta property="og:url" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/index.html">
+<meta property="og:site_name" content="SChenga&#39;s blog">
+<meta property="og:description" content="前言国内 DNS 污染越来越严重，特别是移动宽带，运营商分配的 DNS 在解析很多境外网站时会得到污染的结果或直接返回 127.0.0.1（例如 aka.ms）从而导致代理软件失效。虽然上述问题可以在代理软件中使用分流解决，但在本地搭建 DNS 不仅可以实现分流，更可实现部分广告过滤和缓存功能，极大提升了网页浏览体验。  无污染 DNS 实现原理全部 DNS 请求均使用境外无污染 DNS 会导致本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951344719.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673953706420.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673953829048.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673953833412.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673953836246.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673953912020.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951541023.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951613279.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951686762.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951689851.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951957703.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951964166.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951994369.png">
+<meta property="og:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673952002358.png">
+<meta property="article:published_time" content="2023-01-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-20T06:25:04.596Z">
+<meta property="article:author" content="SChenga">
+<meta property="article:tag" content="隐私保护">
+<meta property="article:tag" content="DNS">
+<meta property="article:tag" content="科学上网">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://schenga39.github.io/hexo-blog/2023/01/16/%E4%BD%BF%E7%94%A8-Mosdns-%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%B1%A1%E6%9F%93-DNS/1673951344719.png">
+  
+  
+  
+  <title>使用 Mosdns 搭建本地无污染 DNS - SChenga&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="../../../../css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="../../../../css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="../../../../css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"schenga39.github.io","root":"/hexo-blog/","version":"1.9.5","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/hexo-blog/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="../../../../js/utils.js" ></script>
+  <script  src="../../../../js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="../../../../index.html">
+      <strong>SChenga&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../index.html">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../../about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('../../../../img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">使用 Mosdns 搭建本地无污染 DNS</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-17 00:00" pubdate>
+          2023年1月17日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">使用 Mosdns 搭建本地无污染 DNS</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>国内 DNS 污染越来越严重，特别是移动宽带，运营商分配的 DNS 在解析很多境外网站时会得到污染的结果或直接返回 127.0.0.1（例如 aka.ms）从而导致代理软件失效。虽然上述问题可以在代理软件中使用分流解决，但在本地搭建 DNS 不仅可以实现分流，更可实现部分广告过滤和缓存功能，极大提升了网页浏览体验。</p>
+<p><img src="1673951344719.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<h2 id="无污染-DNS-实现原理"><a href="#无污染-DNS-实现原理" class="headerlink" title="无污染 DNS 实现原理"></a>无污染 DNS 实现原理</h2><p>全部 DNS 请求均使用境外无污染 DNS 会导致本地域名解析速度偏慢，且在使用 ECS 的情况下准确度不如国内 DNS，若使用本地 DNS 服务端进行分流则可以兼备快速和准确的优点。</p>
+<h2 id="要实现的目标"><a href="#要实现的目标" class="headerlink" title="要实现的目标"></a>要实现的目标</h2><ol>
+<li>DNS 解析结果无污染</li>
+<li>国内外按域名和 IP 分流</li>
+<li>支持 ECS，能解析到距离最近的 CDN 服务器</li>
+<li>延迟尽可能低</li>
+<li>最好全程使用加密 DNS（DoT、DoH、DoQ 等）</li>
+</ol>
+<h2 id="上游-DNS-选择"><a href="#上游-DNS-选择" class="headerlink" title="上游 DNS 选择"></a>上游 DNS 选择</h2><p>国内 DNS 的选择方面，经过测试发现，使用腾讯 DNS 在国内的出口在广东，解析出的地址不是我所在地区的最优地址，而阿里 DNS 就没有这个问题。</p>
+<p>国外的 DNS 选择 GoogleDNS 和 EasymosDNS 作为上游，EasymosDNS 的上游使用国内阿里 DNS、腾讯的 DNSPod 和国外的 GoogleDNS、OpenDNS 等，搭配 ECS 可实现国外正确解析到距离最近的 CDN。</p>
+<h2 id="分流原理"><a href="#分流原理" class="headerlink" title="分流原理"></a>分流原理</h2><p>由于 mosdns 支持 v2ray 的 dat 文件，因此可直接使用 geoip.dat 匹配 IP 地址，使用 geosite.dat 匹配域名。</p>
+<p>在广告过滤方面，可直接使用 <code>geosite:category-ads-all</code> 进行过滤，也可添加常见的广告过滤规则。这里广告过滤规则只支持域名，示例文件如下：</p>
+<div class="code-wrapper"><pre><code class="hljs txt">example-ad1.com
+example-ad2.com</code></pre></div>
+
+<p>我使用了 oisd 的 <a target="_blank" rel="noopener" href="https://dbl.oisd.nl/basic">basic 过滤列表</a>，更多列表可在 <a target="_blank" rel="noopener" href="https://oisd.nl/downloads">https://oisd.nl/downloads</a> 中查看。</p>
+<h2 id="DNS-请求处理流程"><a href="#DNS-请求处理流程" class="headerlink" title="DNS 请求处理流程"></a>DNS 请求处理流程</h2><ol>
+<li>查询 hosts 文件匹配域名</li>
+<li>查询缓存</li>
+<li>屏蔽类型为 65 的 DNS 请求：返回 127.0.0.1（<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/712074">为什么要屏蔽？</a>）</li>
+<li>屏蔽广告域名：返回 NXDOMAIN</li>
+<li>通过域名匹配网址，若匹配到则可第一次分流</li>
+<li>从无污染服务器获取域名 IP，通过 IP 分流，此时可能出现以下情况<ul>
+<li>获取到的 IP 是国外的 IP 则直接返回结果即可</li>
+<li>获取的 IP 是国内 IP 或获取到国内有服务器的 CDN 厂商：将请求通过本地服务器再次解析并返回结果，此时又分为两种情况<ul>
+<li>从国内服务器获取到了被污染的 IP 或使用国内服务器解析出的 IP 不是境内的 IP 则将请求再次交给国外无污染服务器处理</li>
+<li>获取到的 IP 不满足上一条的则直接返回</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>个人使用的配置文件如下：</p>
+<div class="code-wrapper"><pre><code class="hljs yaml"><span class="hljs-comment">######### 日志文件存放位置 #########</span>
+<span class="hljs-attr">log:</span>
+  <span class="hljs-attr">file:</span> <span class="hljs-string">&quot;./mosdns.log&quot;</span>
+  <span class="hljs-attr">level:</span> <span class="hljs-string">error</span>
+<span class="hljs-comment">######### 数据源, 在这里声明规则文件 #########</span>
+<span class="hljs-attr">data_providers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">geosite</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/geosite.dat</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">gfwip</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/gfw_ip_list.txt</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">cdncn</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/cdn_domain_list.txt</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">cn</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/cn.dat</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">force_cn</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/ecs_cn_domain.txt</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">force_us</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/ecs_us_domain.txt</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">hosts</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/hosts.txt</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">oisd_dbl_basic</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">./rule/oisd_dbl_basic.txt</span>
+    <span class="hljs-attr">auto_reload:</span> <span class="hljs-literal">true</span>
+<span class="hljs-comment">######### 插件 #########</span>
+<span class="hljs-attr">plugins:</span>
+  <span class="hljs-comment"># 缓存</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">cache</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">cache</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">size:</span> <span class="hljs-number">102400</span>
+      <span class="hljs-attr">lazy_cache_ttl:</span> <span class="hljs-number">86400</span>
+      <span class="hljs-attr">cache_everything:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># hosts</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">hosts</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">hosts</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">hosts:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:hosts&quot;</span>
+  <span class="hljs-comment"># 调整 ECS</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">ecs_remote</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">ecs</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">auto:</span> <span class="hljs-literal">false</span>
+      <span class="hljs-attr">ipv4:</span> <span class="hljs-string">&quot;代理服务器公网 IP&quot;</span>
+      <span class="hljs-attr">mask4:</span> <span class="hljs-number">24</span>
+      <span class="hljs-attr">force_overwrite:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">ecs_local</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">ecs</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">auto:</span> <span class="hljs-literal">false</span>
+      <span class="hljs-attr">ipv4:</span> <span class="hljs-string">&quot;本地公网 IP&quot;</span>
+      <span class="hljs-attr">mask4:</span> <span class="hljs-number">24</span>
+      <span class="hljs-attr">force_overwrite:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># 调整 TTL</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">ttl_long</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">ttl</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">minimal_ttl:</span> <span class="hljs-number">300</span>
+      <span class="hljs-attr">maximum_ttl:</span> <span class="hljs-number">3600</span>
+  <span class="hljs-comment"># TYPE65 类型请求</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">qtype65</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">qtype:</span> [<span class="hljs-number">65</span>]
+  <span class="hljs-comment"># PTR 类型请求</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_ptr</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">qtype:</span> [<span class="hljs-number">12</span>]
+  <span class="hljs-comment"># 屏蔽请求</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">black_hole</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">blackhole</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">rcode:</span> <span class="hljs-number">0</span>
+      <span class="hljs-attr">ipv4:</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span>
+      <span class="hljs-attr">ipv6:</span> <span class="hljs-string">&quot;::1&quot;</span>
+  <span class="hljs-comment"># 转发请求给阿里 DNS</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">forward_ali</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">fast_forward</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">upstream:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;tls://223.5.5.5&quot;</span>
+          <span class="hljs-attr">trusted:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">enable_pipeline:</span> <span class="hljs-literal">true</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;tls://223.6.6.6&quot;</span>
+          <span class="hljs-attr">trusted:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">enable_pipeline:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># 转发请求给 Google DNS</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">forward_google</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">fast_forward</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">upstream:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;tls://8.8.4.4&quot;</span>
+          <span class="hljs-attr">trusted:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">enable_pipeline:</span> <span class="hljs-literal">true</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;https://dns.google/dns-query&quot;</span>
+          <span class="hljs-attr">dial_addr:</span> <span class="hljs-string">&quot;2001:4860:4860::8888&quot;</span>
+          <span class="hljs-attr">trusted:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">enable_pipeline:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">enable_http3:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># 转发请求给 iQDNS</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">forward_iqdns</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">fast_forward</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">upstream:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;https://cn-east.lele233.com/dns-query&quot;</span>
+          <span class="hljs-attr">dial_addr:</span> <span class="hljs-string">&quot;112.132.212.159&quot;</span>
+          <span class="hljs-attr">trusted:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">enable_pipeline:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># 转发请求给 EasyMos DNS</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">forward_easymos</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">forward</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">upstream:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;https://doh.apad.pro/cn-query&quot;</span>
+      <span class="hljs-attr">bootstrap:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;119.29.29.29&quot;</span>
+  <span class="hljs-comment"># 并行转发至本地服务器</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">forward_local</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">sequence</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">exec:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">parallel:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;forward_ali&quot;</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;forward_iqdns&quot;</span>
+  <span class="hljs-comment"># 并行转发至远程无污染服务器</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">forward_remote</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">sequence</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">exec:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">parallel:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;forward_google&quot;</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;forward_easymos&quot;</span>
+  <span class="hljs-comment"># 匹配 CDN 域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_cdn_cn_domain</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">domain:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:cdncn&quot;</span>
+  <span class="hljs-comment"># 匹配 本地域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_local_domain</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">domain:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:geosite:cn,private,apple-cn,steam@cn,google-cn,category-games@cn&quot;</span>
+  <span class="hljs-comment"># 匹配 地址非中国的域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_non_local_domain</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">domain:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:geosite:geolocation-!cn&quot;</span>
+  <span class="hljs-comment"># 匹配 广告域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_ad_domain</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">domain:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:oisd_dbl_basic&quot;</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:geosite:category-ads-all&quot;</span>
+  <span class="hljs-comment"># 强制本地解析: 可在 ./rule/ecs_cn_domain.txt 文件中添加域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_cn_domain</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">domain:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:force_cn&quot;</span>
+  <span class="hljs-comment"># 强制非本地解析: 可在 ./rule/ecs_us_domain.txt 文件中添加域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">query_is_us_domain</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">query_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">domain:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:force_us&quot;</span>
+  <span class="hljs-comment"># 结果有本地 IP</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">response_has_local_ip</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">response_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">ip:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:cn:cn&quot;</span>
+  <span class="hljs-comment"># 匹配 Akamai 的 CDN 域名</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">response_cname_akamai</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">response_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">cname:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;akamaiedge.net&quot;</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;akadns.net&quot;</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;edgekey.net&quot;</span>
+  <span class="hljs-comment"># 匹配被污染 IP</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">response_has_gfw_ip</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">response_matcher</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">ip:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;provider:gfwip&quot;</span>
+  <span class="hljs-comment"># 主要运行逻辑</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tag:</span> <span class="hljs-string">main_sequence</span>
+    <span class="hljs-attr">type:</span> <span class="hljs-string">sequence</span>
+    <span class="hljs-attr">args:</span>
+      <span class="hljs-attr">exec:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">hosts</span> <span class="hljs-comment"># 域名映射 IP</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">cache</span> <span class="hljs-comment"># 缓存</span>
+        <span class="hljs-comment"># 屏蔽 TYPE65 类型请求并拦截广告</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">if:</span> <span class="hljs-string">&quot;qtype65&quot;</span>
+          <span class="hljs-attr">exec:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">black_hole</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_return</span>
+        <span class="hljs-comment"># 屏蔽广告域名</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">if:</span> <span class="hljs-string">query_is_ad_domain</span>
+          <span class="hljs-attr">exec:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_new_nxdomain_response</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_return</span>
+        <span class="hljs-comment"># 本地解析: 强制本地解析、PTR 请求、本地域名、CDN 域名、akamai 节点</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">if:</span> <span class="hljs-string">&quot;(query_is_cn_domain) || [query_is_ptr] || (query_is_local_domain) || (query_is_cdn_cn_domain) || (response_cname_akamai)&quot;</span>
+          <span class="hljs-attr">exec:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">ecs_local</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">forward_local</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_return</span>
+        <span class="hljs-comment"># 非本地解析: 强制非本地解析、位置非中国的域名</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">if:</span> <span class="hljs-string">&quot;(query_is_us_domain) || (query_is_non_local_domain)&quot;</span>
+          <span class="hljs-attr">exec:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_prefer_ipv4</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">ecs_remote</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">forward_remote</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">ttl_long</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_return</span>
+        <span class="hljs-comment"># 未知域名 IP 分流</span>
+        <span class="hljs-comment"># 远程获取应答, 丢弃本地 IP 结果</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">primary:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">_prefer_ipv4</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">ecs_remote</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">forward_remote</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">if:</span> <span class="hljs-string">&quot;(response_has_local_ip) || (response_cname_akamai)&quot;</span>
+              <span class="hljs-attr">exec:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">_drop_response</span>
+          <span class="hljs-comment"># 本地获取应答</span>
+          <span class="hljs-attr">secondary:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">ecs_local</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">forward_local</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">if:</span> <span class="hljs-string">&quot;(! response_has_local_ip) &amp;&amp; [_response_valid_answer] || (response_has_gfw_ip)&quot;</span>
+              <span class="hljs-attr">exec:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">_prefer_ipv4</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">ecs_remote</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">forward_remote</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">ttl_long</span>
+          <span class="hljs-comment"># 避免 DNS 泄漏</span>
+          <span class="hljs-attr">fast_fallback:</span> <span class="hljs-number">2500</span>
+          <span class="hljs-attr">always_standby:</span> <span class="hljs-literal">false</span>
+<span class="hljs-comment">######### 监听地址 #########</span>
+<span class="hljs-attr">servers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">exec:</span> <span class="hljs-string">main_sequence</span>
+    <span class="hljs-attr">timeout:</span> <span class="hljs-number">5</span>
+    <span class="hljs-attr">listeners:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">udp</span>
+        <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;127.0.0.1:53&quot;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">udp</span>
+        <span class="hljs-attr">addr:</span> <span class="hljs-string">&quot;[::1]:53&quot;</span></code></pre></div>
+
+<h2 id="测试本地-DNS-运行情况"><a href="#测试本地-DNS-运行情况" class="headerlink" title="测试本地 DNS 运行情况"></a>测试本地 DNS 运行情况</h2><p>使用 <a target="_blank" rel="noopener" href="https://github.com/natesales/q">q</a> 作为测试工具，支持 UDP、TCP、DoT、DoH、DoQ 等协议，同时支持设置 ECS。</p>
+<h3 id="国内网站解析测试"><a href="#国内网站解析测试" class="headerlink" title="国内网站解析测试"></a>国内网站解析测试</h3><p>选用浙江电信 202.101.172.35 作为 ECS 地址进行测试。</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.iqiyi.com/">爱奇艺</a></p>
+<p><img src="1673953706420.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>仅用 32ms 返回结果，解析到了武汉机房</li>
+</ul>
+</li>
+<li><p>bilibili 负载均衡域名：<code>i0.hdslb.com</code>、<code>i1.hdslb.com</code>、<code>s1.hdslb.com</code></p>
+<p><img src="1673953829048.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="1673953833412.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="1673953836246.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>可以看到均能正确解析，且解析时间均在 30ms 左右，非常快</li>
+<li>IPv4 解析结果均在浙江邻省，可认为 ECS 正常发挥作用</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.oschina.net/">开源中国</a><br><img src="1673953912020.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>解析到了上海，且解析速度较快</li>
+</ul>
+</li>
+</ol>
+<h3 id="国外网站解析测试"><a href="#国外网站解析测试" class="headerlink" title="国外网站解析测试"></a>国外网站解析测试</h3><ol>
+<li><p>Google 系网站，以 google.com 为例</p>
+<p><img src="1673951541023.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="1673951613279.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>均在 180ms 以内得到正确的解析结果，且解析到了距离洛杉矶代理服务器最近的地点</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.reddit.com/">维基百科</a></p>
+<p><img src="1673951686762.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="1673951689851.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>解析延迟在可接受的范围内</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/">GitHub</a></p>
+<p><img src="1673951957703.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="1673951964166.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>200ms 以内得出正确的解析结果，ping 延迟可接受</li>
+</ul>
+</li>
+<li><p>CloudFlare CDN：以 <a target="_blank" rel="noopener" href="https://www.v2ex.com/">v2ex 论坛</a> 为例</p>
+<p><img src="1673951994369.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="1673952002358.png" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<ul>
+<li>解析用时可接受，由于 Anycast 技术，在各个地方延迟均非常低</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://irine-sistiana.gitbook.io/mosdns-wiki/mosdns-v4/ru-he-pei-zhi-mosdns">mosdns 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://jasper1024.com/jasper/20211223034622">Jasper 的博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pmkol/easymosdns">EasymosDNS</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="../../../../tags/%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4/" class="print-no-link">#隐私保护</a>
+      
+        <a href="../../../../tags/DNS/" class="print-no-link">#DNS</a>
+      
+        <a href="../../../../tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="print-no-link">#科学上网</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用 Mosdns 搭建本地无污染 DNS</div>
+      <div>https://schenga39.github.io/hexo-blog/2023/01/16/使用-Mosdns-搭建本地无污染-DNS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>SChenga</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="../../25/%E5%8A%A0%E5%AF%86%E5%85%AC%E5%85%B1-DNS-%E5%9C%B0%E5%9D%80%E6%B1%87%E6%80%BB/" title="加密公共 DNS 地址汇总">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">加密公共 DNS 地址汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="../../../../2022/12/31/Obsidian-DataviewJS-%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/" title="Obsidian DataviewJS 插件使用实例">
+                        <span class="hidden-mobile">Obsidian DataviewJS 插件使用实例</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="../../../../js/events.js" ></script>
+<script  src="../../../../js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="../../../../js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="../../../../js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="../../../../js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
