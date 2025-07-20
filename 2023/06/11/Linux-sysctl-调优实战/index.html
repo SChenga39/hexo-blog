@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="../../../../img/fluid.png">
-  <link rel="icon" href="../../../../img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/hexo-blog/img/fluid.png">
+  <link rel="icon" href="/hexo-blog/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -24,7 +24,7 @@
 <meta property="og:description" content="sysctl 的使用方式 使用命令 sysctl -w key&#x3D;value 手动调整选项值 使用命令 sysctl key 获取选项当前的值 （推荐）先编辑文件 &#x2F;etc&#x2F;sysctl.conf 然后使用命令 sysctl -p 一键导入已修改的键值对  使用合适的拥塞控制算法拥塞控制是通过算法来提升或降低数据发送速率以防止网络出现拥堵。常见的拥塞控制算法有 reno、cubic、bbr 等，其中">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-07-20T06:25:04.592Z">
+<meta property="article:modified_time" content="2025-07-20T06:29:50.466Z">
 <meta property="article:author" content="SChenga">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="性能优化">
@@ -56,12 +56,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="../../../../css/main.css" />
+<link  rel="stylesheet" href="/hexo-blog/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="../../../../css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/hexo-blog/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="../../../../css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/hexo-blog/css/highlight-dark.css" />
   
 
 
@@ -77,8 +77,8 @@
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="../../../../js/utils.js" ></script>
-  <script  src="../../../../js/color-schema.js" ></script>
+  <script  src="/hexo-blog/js/utils.js" ></script>
+  <script  src="/hexo-blog/js/color-schema.js" ></script>
   
 
 
@@ -95,7 +95,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="../../../../index.html">
+    <a class="navbar-brand" href="/hexo-blog/">
       <strong>SChenga&#39;s Blog</strong>
     </a>
 
@@ -114,7 +114,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="../../../../index.html">
+              <a class="nav-link" href="/hexo-blog/">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -126,7 +126,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="../../../../archives/">
+              <a class="nav-link" href="/hexo-blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -138,7 +138,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="../../../../categories/">
+              <a class="nav-link" href="/hexo-blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -150,7 +150,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="../../../../tags/">
+              <a class="nav-link" href="/hexo-blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -162,7 +162,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="../../../../about/">
+              <a class="nav-link" href="/hexo-blog/about/">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -192,7 +192,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('../../../../img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/hexo-blog/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -504,9 +504,9 @@ vim /etc/fstab
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="../../../../tags/Linux/" class="print-no-link">#Linux</a>
+        <a href="/hexo-blog/tags/Linux/" class="print-no-link">#Linux</a>
       
-        <a href="../../../../tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="print-no-link">#性能优化</a>
+        <a href="/hexo-blog/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="print-no-link">#性能优化</a>
       
     </div>
   
@@ -563,7 +563,7 @@ vim /etc/fstab
                   <article class="post-prev col-6">
                     
                     
-                      <a href="../../../09/27/Arch-Linux-%E5%AE%89%E8%A3%85%E5%85%A8%E8%BF%87%E7%A8%8B/" title="Arch Linux 安装全过程">
+                      <a href="/hexo-blog/2023/09/27/Arch-Linux-%E5%AE%89%E8%A3%85%E5%85%A8%E8%BF%87%E7%A8%8B/" title="Arch Linux 安装全过程">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Arch Linux 安装全过程</span>
                         <span class="visible-mobile">上一篇</span>
@@ -573,7 +573,7 @@ vim /etc/fstab
                   <article class="post-next col-6">
                     
                     
-                      <a href="../../../05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/" title="Windows 系统新装优化指南">
+                      <a href="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/" title="Windows 系统新装优化指南">
                         <span class="hidden-mobile">Windows 系统新装优化指南</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -703,15 +703,15 @@ vim /etc/fstab
 
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="../../../../js/events.js" ></script>
-<script  src="../../../../js/plugins.js" ></script>
+<script  src="/hexo-blog/js/events.js" ></script>
+<script  src="/hexo-blog/js/plugins.js" ></script>
 
 
 
 
 
   
-    <script  src="../../../../js/img-lazyload.js" ></script>
+    <script  src="/hexo-blog/js/img-lazyload.js" ></script>
   
 
 
@@ -810,7 +810,7 @@ vim /etc/fstab
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="../../../../js/local-search.js" ></script>
+  <script  src="/hexo-blog/js/local-search.js" ></script>
 
 
 
@@ -818,7 +818,7 @@ vim /etc/fstab
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="../../../../js/boot.js" ></script>
+<script  src="/hexo-blog/js/boot.js" ></script>
 
 
   
