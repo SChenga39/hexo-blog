@@ -309,7 +309,8 @@ lazyload:
 
 # 图标库，包含了大量社交类图标，主题依赖的不包含在内，因此可自行修改，详见 https://hexo.fluid-dev.com/docs/icon/
 # Icon library, which includes many social icons, does not include those theme dependent, so your can modify link by yourself. See: https://hexo.fluid-dev.com/docs/en/icon/
-iconfont: //at.alicdn.com/t/font_1736178_lbnruvf0jn.css
+# iconfont: //at.alicdn.com/t/font_1736178_lbnruvf0jn.css
+iconfont: /css/font_1736178_lbnruvf0jn.css
 
 #---------------------------
 # 页头
@@ -342,13 +343,13 @@ navbar:
   menu:
     - { key: "home", link: "/", icon: "iconfont icon-home-fill" }
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
-    - {
-        key: "category",
-        link: "/categories/",
-        icon: "iconfont icon-category-fill",
-      }
+    # - {
+    #     key: "category",
+    #     link: "/categories/",
+    #     icon: "iconfont icon-category-fill",
+    #   }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
-    - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
+    # - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
