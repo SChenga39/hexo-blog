@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16" # 你可以根据需要选择 Node.js 版本，16 或 18 较稳定
+          node-version: "18" # 你可以根据需要选择 Node.js 版本，16 或 18 较稳定
           cache: "npm" # 缓存 npm 依赖，加快后续构建速度
 
       # 步骤3：安装项目依赖
