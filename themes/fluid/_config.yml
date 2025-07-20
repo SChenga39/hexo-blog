@@ -407,7 +407,7 @@ scroll_top_arrow:
 # Open Graph metadata
 # See: https://hexo.io/docs/helpers.html#open-graph
 open_graph:
-  enable: true
+  enable: false
   twitter_card: summary_large_image
   twitter_id:
   twitter_site:
@@ -646,7 +646,7 @@ post:
 
     # 显示作者
     author:
-      enable: true
+      enable: false
 
     # 显示发布日期
     # Show post date
@@ -895,7 +895,7 @@ archive:
 # Category Page
 #---------------------------
 category:
-  enable: true
+  enable: false
   banner_img: /img/default.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
@@ -939,7 +939,7 @@ tag:
 # About Page
 #---------------------------
 about:
-  enable: true
+  enable: false
   banner_img: /img/default.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
