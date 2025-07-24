@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 1749284 */
-  src: url("font_1749284_hj8rtnfg7um.woff2") format("woff2"),
-    url("font_1749284_hj8rtnfg7um.woff") format("woff"),
-    url("font_1749284_hj8rtnfg7um.ttf") format("truetype");
+  src: url("/css/font_1749284_hj8rtnfg7um.woff2") format("woff2"),
+    url("/css/font_1749284_hj8rtnfg7um.woff") format("woff"),
+    url("/css/font_1749284_hj8rtnfg7um.ttf") format("truetype");
   font-display: swap;
 }
 
