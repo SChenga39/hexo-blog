@@ -1076,24 +1076,46 @@ static_prefix:
   # discuss: https://lib.baomitu.com/discuss/1.2.1/
   # hint: https://lib.baomitu.com/hint.css/2.7.0/
 
-  anchor: https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/
-  github_markdown: https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/
-  jquery: https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/
-  bootstrap: https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/
-  prismjs: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/
-  tocbot: https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.1/
-  typed: https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/
-  fancybox: https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/
-  nprogress: https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/
-  mathjax: https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/
-  katex: https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.2/
-  busuanzi: https://cdnjs.cloudflare.com/ajax/libs/busuanzi/2.3.0/
-  clipboard: https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/
-  mermaid: https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.14.0/
-  valine: https://cdnjs.cloudflare.com/ajax/libs/valine/1.5.1/
-  waline: https://cdnjs.cloudflare.com/ajax/libs/waline/2.15.5/
-  gitalk: https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/
-  disqusjs: https://cdnjs.cloudflare.com/ajax/libs/disqusjs/1.3.0/
-  twikoo: https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.6.8/
-  discuss: https://cdnjs.cloudflare.com/ajax/libs/discuss/1.2.1/
-  hint: https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/
+  # anchor: https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/
+  # github_markdown: https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/
+  # jquery: https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/
+  # bootstrap: https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/
+  # prismjs: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/
+  # tocbot: https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.1/
+  # typed: https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/
+  # fancybox: https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/
+  # nprogress: https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/
+  # mathjax: https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/
+  # katex: https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.2/
+  # busuanzi: https://cdnjs.cloudflare.com/ajax/libs/busuanzi/2.3.0/
+  # clipboard: https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/
+  # mermaid: https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.14.0/
+  # valine: https://cdnjs.cloudflare.com/ajax/libs/valine/1.5.1/
+  # waline: https://cdnjs.cloudflare.com/ajax/libs/waline/2.15.5/
+  # gitalk: https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/
+  # disqusjs: https://cdnjs.cloudflare.com/ajax/libs/disqusjs/1.3.0/
+  # twikoo: https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.6.8/
+  # discuss: https://cdnjs.cloudflare.com/ajax/libs/discuss/1.2.1/
+  # hint: https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/
+
+  anchor: /lib
+  github_markdown: /lib
+  jquery: /lib
+  bootstrap: /lib
+  prismjs: /lib
+  tocbot: /lib
+  typed: /lib
+  fancybox: /lib
+  nprogress: /lib
+  mathjax: /lib
+  katex: /lib
+  busuanzi: /lib
+  clipboard: /lib
+  mermaid: /lib
+  valine: /lib
+  waline: /lib
+  gitalk: /lib
+  disqusjs: /lib
+  twikoo: /lib
+  discuss: /lib
+  hint: /lib
