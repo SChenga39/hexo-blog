@@ -1,21 +1,901 @@
-<!DOCTYPE html><html lang="zh-CN" data-default-color-scheme="auto"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/hexo-blog/img/fluid.png"><link rel="icon" href="/hexo-blog/img/fluid.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="author" content="SChenga"><meta name="keywords" content=""><meta name="description" content="安装驱动和基本软件：驱动装完再装软件驱动安装顺序：  主板相关驱动 BIOS 更新（如果有） 显卡、网卡、声卡 其他驱动 配套软件 杀软（如果需要）  使用 Dism++ 卸载系统无用软件并关闭系统更新若软件在用户应用和预装应用里都有，那么先在用户应用中删除再在预装应用中删除  有用的 Appx 应用商店相关 UI 相关 各种 VCLibs .NET 环境 Webp、VP9、HEIF 等格式扩展支"><title>Windows 系统新装优化指南 - SChenga&#39;s blog</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"><style>@font-face{font-family:iconfont;src:url(/hexo-blog/css/font_1749284_hj8rtnfg7um.woff2) format("woff2"),url(/hexo-blog/css/font_1749284_hj8rtnfg7um.woff) format("woff"),url(/hexo-blog/css/font_1749284_hj8rtnfg7um.ttf) format("truetype");font-display:swap}.iconfont{font-family:iconfont!important;font-size:16px;font-style:normal;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-success:before{content:"\e619"}.icon-cc:before{content:"\e8e4"}.icon-nd:before{content:"\e90e"}.icon-sa:before{content:"\e604"}.icon-nc:before{content:"\ed48"}.icon-by:before{content:"\e741"}.icon-top:before{content:"\e605"}.icon-author:before{content:"\e7aa"}.icon-light:before{content:"\e6e6"}.icon-dark:before{content:"\e640"}.icon-articles:before{content:"\e61f"}.icon-category-fill:before{content:"\e60d"}.icon-category:before{content:"\e65e"}.icon-chart:before{content:"\e618"}.icon-search:before{content:"\e6f2"}.icon-love:before{content:"\e643"}.icon-eye:before{content:"\e722"}.icon-archive-fill:before{content:"\ef1c"}.icon-date-fill:before{content:"\ef5a"}.icon-home-fill:before{content:"\f017"}.icon-link-fill:before{content:"\f037"}.icon-tags-fill:before{content:"\f0f3"}.icon-user-fill:before{content:"\f12c"}.icon-date:before{content:"\f27d"}.icon-copy:before{content:"\f289"}.icon-list:before{content:"\f2c0"}.icon-tags:before{content:"\e798"}.icon-clock-fill:before{content:"\e67d"}.icon-arrowup:before{content:"\e799"}.icon-arrowleft:before{content:"\f2c2"}.icon-arrowright:before{content:"\f2c3"}.icon-arrowdown:before{content:"\f2c4"}</style><link rel="stylesheet" href="/hexo-blog/css/font_1736178_lbnruvf0jn.css"><link rel="stylesheet" href="/hexo-blog/css/main.css"><link media="print" onload='this.media="all"' id="highlight-css" rel="stylesheet" href="/hexo-blog/css/highlight.css"><link media="print" onload='this.media="all"' id="highlight-css-dark" rel="stylesheet" href="/hexo-blog/css/highlight-dark.css"><link rel="preload" href="/hexo-blog/css/font_1749284_hj8rtnfg7um.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/hexo-blog/css/font_1736178_lbnruvf0jn.woff2" as="font" type="font/woff2" crossorigin><script id="fluid-configs">var Fluid=window.Fluid||{};Fluid.ctx=Object.assign({},Fluid.ctx);var CONFIG={hostname:"schenga39.github.io",root:"/hexo-blog/",version:"1.9.5",typing:{enable:!1,typeSpeed:70,cursorChar:"_",loop:!1,scope:[]},anchorjs:{enable:!0,element:"h1,h2,h3,h4,h5,h6",placement:"left",visible:"hover",icon:""},progressbar:{enable:!0,height_px:3,color:"#29d",options:{showSpinner:!1,trickleSpeed:100}},code_language:{enable:!0,default:"TEXT"},copy_btn:!0,image_caption:{enable:!0},image_zoom:{enable:!0,img_url_replace:["",""]},toc:{enable:!0,placement:"right",headingSelector:"h1,h2,h3,h4,h5,h6",collapseDepth:0},lazyload:{enable:!0,loading_img:"/img/loading.gif",onlypost:!1,offset_factor:2},web_analytics:{enable:!1,follow_dnt:!0,baidu:null,google:{measurement_id:null},tencent:{sid:null,cid:null},woyaola:null,cnzz:null,leancloud:{app_id:null,app_key:null,server_url:null,path:"window.location.pathname",ignore_local:!1}},search_path:"/hexo-blog/local-search.xml",include_content_in_search:!0};if(CONFIG.web_analytics.follow_dnt){var dntVal=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack;Fluid.ctx.dnt=dntVal&&(dntVal.startsWith("1")||dntVal.startsWith("yes")||dntVal.startsWith("on"))}</script><script src="/hexo-blog/js/utils.js"></script><script src="/hexo-blog/js/color-schema.js"></script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/hexo-blog/atom.xml" title="SChenga's blog" type="application/atom+xml">
-</head><body><header><div class="header-inner" style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/hexo-blog/"><strong>SChenga&#39;s Blog</strong> </a><button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/hexo-blog/"><i class="iconfont icon-home-fill"></i> <span>首页</span></a></li><li class="nav-item"><a class="nav-link" href="/hexo-blog/archives/"><i class="iconfont icon-archive-fill"></i> <span>归档</span></a></li><li class="nav-item"><a class="nav-link" href="/hexo-blog/tags/"><i class="iconfont icon-tags-fill"></i> <span>标签</span></a></li><li class="nav-item" id="search-btn"><a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search"><i class="iconfont icon-search"></i></a></li><li class="nav-item" id="color-toggle-btn"><a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle"><i class="iconfont icon-dark" id="color-toggle-icon"></i></a></li></ul></div></div></nav><div id="banner" class="banner" parallax="true" style="background:url(/hexo-blog/img/default.webp) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="banner-text text-center fade-in-up"><div class="h2"><span id="subtitle">Windows 系统新装优化指南</span></div><div class="mt-3"><span class="post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2023-05-08 00:00" pubdate>2023年5月8日 凌晨</time></span></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 4.3k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 37 分钟</span></div></div></div></div></div></div></header><main><div class="container-fluid nopadding-x"><div class="row nomargin-x"><div class="side-col d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-x-md"><div class="container nopadding-x-md" id="board-ctn"><div id="board"><article class="post-content mx-auto"><h1 id="seo-header">Windows 系统新装优化指南</h1><div class="markdown-body"><h2 id="安装驱动和基本软件：驱动装完再装软件"><a href="#安装驱动和基本软件：驱动装完再装软件" class="headerlink" title="安装驱动和基本软件：驱动装完再装软件"></a>安装驱动和基本软件：驱动装完再装软件</h2><p>驱动安装顺序：</p><ol><li>主板相关驱动</li><li>BIOS 更新（如果有）</li><li>显卡、网卡、声卡</li><li>其他驱动</li><li>配套软件</li><li>杀软（如果需要）</li></ol><h2 id="使用-Dism-卸载系统无用软件并关闭系统更新"><a href="#使用-Dism-卸载系统无用软件并关闭系统更新" class="headerlink" title="使用 Dism++ 卸载系统无用软件并关闭系统更新"></a>使用 Dism++ 卸载系统无用软件并关闭系统更新</h2><p>若软件在用户应用和预装应用里都有，那么先在用户应用中删除再在预装应用中删除</p><ul><li>有用的 Appx<ul><li>应用商店相关</li><li>UI 相关</li><li>各种 VCLibs</li><li>.NET 环境</li><li>Webp、VP9、HEIF 等格式扩展支持</li><li>画图、截图等</li></ul></li></ul><h2 id="关闭无用的服务"><a href="#关闭无用的服务" class="headerlink" title="关闭无用的服务"></a>关闭无用的服务</h2><p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_1.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p><p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_2.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p><p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_3.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p><p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_4.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p><p>对需要禁用的服务说明如下：</p><ul><li>AVCTP 服务：蓝牙耳机相关</li><li>Hyper-V 相关服务：HV 主机相关</li><li>Edge 更新服务：新版 Edge 相关</li><li>Smart Card 开头的服务：智能卡相关</li><li>SSDP Discovery、Function Discovery Provider Host、UPnP Device Host、Function Discovery Resource Publication：Upnp、SSDP 服务</li><li>Shell Hardware Detection：自动播放功能</li><li>Quality Windows Audio Video Experience：可禁用</li><li>Windows Search：务必关闭</li><li>SysMain：使用固态硬盘的请关闭</li><li>IP Helper：提供 IPv6 到 IPv4 的转换，不使用 IPv6 的可以关闭</li><li>TCP&#x2F;IP NetBIOS Helper：提供 NetBIOS 相关功能</li><li>Print 开头的三项服务：提供打印相关服务，不使用打印机的可以关闭</li><li>无线网卡搜不到网络的，一般都是因为无线电管理服务被禁用了</li><li>带 <code>_xxxxx</code> 后缀的服务可能在服务里调整不了，需到注册表的 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</code> 目录下调整（2 自动，3 手动，4 禁用）<ul><li>BcastDVRUserService_xxx Xbox 游戏录制，根据需求选择 3&#x2F;4</li><li>BluetoothUserService_xxx 蓝牙服务，建议 3</li><li>ConsentUxUserSvc_xxx、DevicesFlowUserSvc_xxx、DevicePickerUserSvc_xxx、DeviceAssociationBrokerSvc_xxx、UdkUserSvc_xxx 连接设备时可能会用到，建议 3</li><li>CaptureService_xxx 截图工具可能会用到的 api，建议 3</li><li>cbdhsvc_xxx 剪贴板，建议 2&#x2F;3</li><li>CDPUserSvc_xxx 同步用户设置、隐私等数据用的，想保护隐私的选 3，需要这项功能的选 2</li><li>CredentialEnrollmentManagerUserSvc_xxx 凭据管理器，存储密码用的，建议 2&#x2F;3</li><li>MessagingService_xxx 需要短信功能的 3，不用的 4</li><li>UnistoreSvc_xxx、UserDataSvc_xxx、储存、访问联系人、邮件等用户数据，需要用的 3，不用的 4</li><li>PimIndexMaintenanceSvc_xxx 联系人相关，用的 3，不用的 4</li><li>PrintWorkflowUserSvc_xxx 打印机相关，选 3</li><li>WpnUserService_xxx 推送系统通知用的，选 2</li><li>OneSyncSvc、OneSyncSvc_xxxx 不需要同步的可以 4</li></ul></li></ul><h2 id="释放系统预留的-7G-空间"><a href="#释放系统预留的-7G-空间" class="headerlink" title="释放系统预留的 7G 空间"></a>释放系统预留的 7G 空间</h2><p><code>DISM.exe /Online /Set-ReservedStorageState /State:Disabled</code></p><h2 id="避免微软输入法卡顿"><a href="#避免微软输入法卡顿" class="headerlink" title="避免微软输入法卡顿"></a>避免微软输入法卡顿</h2><p>右键输入法，设置 -&gt; 常规，在兼容性里选择使用以前版本的微软输入法</p><h2 id="解决提示需要新应用打开此-ms-screenclip-链接"><a href="#解决提示需要新应用打开此-ms-screenclip-链接" class="headerlink" title="解决提示需要新应用打开此 ms-screenclip 链接"></a>解决提示需要新应用打开此 ms-screenclip 链接</h2><p><code>DISM /Online /Add-Capability /CapabilityName:Windows.Client.ShellComponents~~~~0.0.1.0</code></p><h2 id="推荐精简版系统"><a href="#推荐精简版系统" class="headerlink" title="推荐精简版系统"></a>推荐精简版系统</h2><p>远景论坛 <strong>不忘初心</strong> 大神的各类精简版系统</p><h2 id="右键菜单管理"><a href="#右键菜单管理" class="headerlink" title="右键菜单管理"></a>右键菜单管理</h2><p><a target="_blank" rel="noopener" href="https://github.com/BluePointLilac/ContextMenuManager">GitHub - BluePointLilac&#x2F;ContextMenuManager: 🖱️ 纯粹的 Windows 右键菜单管理程序</a></p><h2 id="解决-AMD-CPU-卡顿的问题"><a href="#解决-AMD-CPU-卡顿的问题" class="headerlink" title="解决 AMD CPU 卡顿的问题"></a>解决 AMD CPU 卡顿的问题</h2><p>关闭 BIOS 中的 <code>AMD Platform Security Processor</code></p><h2 id="Windows-11-改回-Windows-10-的右键菜单"><a href="#Windows-11-改回-Windows-10-的右键菜单" class="headerlink" title="Windows 11 改回 Windows 10 的右键菜单"></a>Windows 11 改回 Windows 10 的右键菜单</h2><p>打开 cmd 并输入 <code>reg add &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;\InprocServer32&quot; /f /ve</code> 后重启资源管理器即可生效。要恢复为 Windows 11 右键菜单，则使用命令：<code>reg delete &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;&quot; /f</code></p><h2 id="CPU-响应速度优化"><a href="#CPU-响应速度优化" class="headerlink" title="CPU 响应速度优化"></a>CPU 响应速度优化</h2><p>下载软件 QuickCPU，将左下角 Core Parking、Frequency Scaling、Turbo boost、Performance 全部拉满即可。</p><h2 id="加速系统响应速度"><a href="#加速系统响应速度" class="headerlink" title="加速系统响应速度"></a>加速系统响应速度</h2><p>注册表找到 <code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management</code>，根据屏幕分辨率修改 SessionPoolSize 和 SessionViewSize</p><ul><li>SessionPoolSize：1080P 改为 62K 改为 12，4K 改为 24</li><li>SessionViewSize：1080P 改为 62，2K 改为 144，4K 改为 288</li></ul><h2 id="针对-Ryzen-笔记本的优化"><a href="#针对-Ryzen-笔记本的优化" class="headerlink" title="针对 Ryzen 笔记本的优化"></a>针对 Ryzen 笔记本的优化</h2><h3 id="风扇转速"><a href="#风扇转速" class="headerlink" title="风扇转速"></a>风扇转速</h3><ol><li><p>使用软件 atrofac</p></li><li><p>点击 Edit Configuration 配置，常用的配置如下</p><div class="code-wrapper"><pre><code class="hljs conf"># 极度安静
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/hexo-blog/img/fluid.png">
+  <link rel="icon" href="/hexo-blog/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="SChenga">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="安装驱动和基本软件：驱动装完再装软件驱动安装顺序：  主板相关驱动 BIOS 更新（如果有） 显卡、网卡、声卡 其他驱动 配套软件 杀软（如果需要）  使用 Dism++ 卸载系统无用软件并关闭系统更新若软件在用户应用和预装应用里都有，那么先在用户应用中删除再在预装应用中删除  有用的 Appx 应用商店相关 UI 相关 各种 VCLibs .NET 环境 Webp、VP9、HEIF 等格式扩展支">
+  
+  
+  
+  <title>Windows 系统新装优化指南 - SChenga&#39;s blog</title>
+
+  <!-- <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" /> -->
+<link  rel="stylesheet" href="/hexo-blog/lib/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+<!-- 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+<link rel="stylesheet" media="print" onload="this.media&#x3D;&quot;all&quot;" href="/hexo-blog/.css">
+ -->
+<!-- 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+ -->
+<!-- <link [object Object] rel="stylesheet" href="/hexo-blog/css/font_1749284_hj8rtnfg7um.css" /> -->
+
+<style>
+@font-face {
+  font-family: "iconfont"; /* Project id 1749284 */
+  src: url("/hexo-blog/css/font_1749284_hj8rtnfg7um.woff2") format("woff2"),
+    url("/hexo-blog/css/font_1749284_hj8rtnfg7um.woff") format("woff"),
+    url("/hexo-blog/css/font_1749284_hj8rtnfg7um.ttf") format("truetype");
+  font-display: swap;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-success:before {
+  content: "\e619";
+}
+
+.icon-cc:before {
+  content: "\e8e4";
+}
+
+.icon-nd:before {
+  content: "\e90e";
+}
+
+.icon-sa:before {
+  content: "\e604";
+}
+
+.icon-nc:before {
+  content: "\ed48";
+}
+
+.icon-by:before {
+  content: "\e741";
+}
+
+.icon-top:before {
+  content: "\e605";
+}
+
+.icon-author:before {
+  content: "\e7aa";
+}
+
+.icon-light:before {
+  content: "\e6e6";
+}
+
+.icon-dark:before {
+  content: "\e640";
+}
+
+.icon-articles:before {
+  content: "\e61f";
+}
+
+.icon-category-fill:before {
+  content: "\e60d";
+}
+
+.icon-category:before {
+  content: "\e65e";
+}
+
+.icon-chart:before {
+  content: "\e618";
+}
+
+.icon-search:before {
+  content: "\e6f2";
+}
+
+.icon-love:before {
+  content: "\e643";
+}
+
+.icon-eye:before {
+  content: "\e722";
+}
+
+.icon-archive-fill:before {
+  content: "\ef1c";
+}
+
+.icon-date-fill:before {
+  content: "\ef5a";
+}
+
+.icon-home-fill:before {
+  content: "\f017";
+}
+
+.icon-link-fill:before {
+  content: "\f037";
+}
+
+.icon-tags-fill:before {
+  content: "\f0f3";
+}
+
+.icon-user-fill:before {
+  content: "\f12c";
+}
+
+.icon-date:before {
+  content: "\f27d";
+}
+
+.icon-copy:before {
+  content: "\f289";
+}
+
+.icon-list:before {
+  content: "\f2c0";
+}
+
+.icon-tags:before {
+  content: "\e798";
+}
+
+.icon-clock-fill:before {
+  content: "\e67d";
+}
+
+.icon-arrowup:before {
+  content: "\e799";
+}
+
+.icon-arrowleft:before {
+  content: "\f2c2";
+}
+
+.icon-arrowright:before {
+  content: "\f2c3";
+}
+
+.icon-arrowdown:before {
+  content: "\f2c4";
+}
+</style>
+
+
+<link rel="stylesheet" href="/hexo-blog/css/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/hexo-blog/css/main.css" />
+
+
+  <link media="print" onload="this.media='all'" id="highlight-css" rel="stylesheet" href="/hexo-blog/css/highlight.css" />
+  
+    <link media="print" onload="this.media='all'" id="highlight-css-dark" rel="stylesheet" href="/hexo-blog/css/highlight-dark.css" />
+  
+
+
+
+
+<!-- Preload woff2 font: Only preload woff2 files, as it is the preferred format for modern browsers. -->
+<link rel="preload" href="/hexo-blog/css/font_1749284_hj8rtnfg7um.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/hexo-blog/css/font_1736178_lbnruvf0jn.woff2" as="font" type="font/woff2" crossorigin>
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"schenga39.github.io","root":"/hexo-blog/","version":"1.9.5","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/hexo-blog/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/hexo-blog/js/utils.js" ></script>
+  <script  src="/hexo-blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/hexo-blog/atom.xml" title="SChenga's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/hexo-blog/">
+      <strong>SChenga&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/hexo-blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/hexo-blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/hexo-blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/hexo-blog/img/default.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Windows 系统新装优化指南</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-08 00:00" pubdate>
+          2023年5月8日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Windows 系统新装优化指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="安装驱动和基本软件：驱动装完再装软件"><a href="#安装驱动和基本软件：驱动装完再装软件" class="headerlink" title="安装驱动和基本软件：驱动装完再装软件"></a>安装驱动和基本软件：驱动装完再装软件</h2><p>驱动安装顺序：</p>
+<ol>
+<li>主板相关驱动</li>
+<li>BIOS 更新（如果有）</li>
+<li>显卡、网卡、声卡</li>
+<li>其他驱动</li>
+<li>配套软件</li>
+<li>杀软（如果需要）</li>
+</ol>
+<h2 id="使用-Dism-卸载系统无用软件并关闭系统更新"><a href="#使用-Dism-卸载系统无用软件并关闭系统更新" class="headerlink" title="使用 Dism++ 卸载系统无用软件并关闭系统更新"></a>使用 Dism++ 卸载系统无用软件并关闭系统更新</h2><p>若软件在用户应用和预装应用里都有，那么先在用户应用中删除再在预装应用中删除</p>
+<ul>
+<li>有用的 Appx<ul>
+<li>应用商店相关</li>
+<li>UI 相关</li>
+<li>各种 VCLibs</li>
+<li>.NET 环境</li>
+<li>Webp、VP9、HEIF 等格式扩展支持</li>
+<li>画图、截图等</li>
+</ul>
+</li>
+</ul>
+<h2 id="关闭无用的服务"><a href="#关闭无用的服务" class="headerlink" title="关闭无用的服务"></a>关闭无用的服务</h2><p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_1.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_2.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_3.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p><img src="/hexo-blog/2023/05/07/Windows-%E7%B3%BB%E7%BB%9F%E6%96%B0%E8%A3%85%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/%E7%A6%81%E7%94%A8%E6%9C%8D%E5%8A%A1_4.webp" srcset="/hexo-blog/img/loading.gif" lazyload></p>
+<p>对需要禁用的服务说明如下：</p>
+<ul>
+<li>AVCTP 服务：蓝牙耳机相关</li>
+<li>Hyper-V 相关服务：HV 主机相关</li>
+<li>Edge 更新服务：新版 Edge 相关</li>
+<li>Smart Card 开头的服务：智能卡相关</li>
+<li>SSDP Discovery、Function Discovery Provider Host、UPnP Device Host、Function Discovery Resource Publication：Upnp、SSDP 服务</li>
+<li>Shell Hardware Detection：自动播放功能</li>
+<li>Quality Windows Audio Video Experience：可禁用</li>
+<li>Windows Search：务必关闭</li>
+<li>SysMain：使用固态硬盘的请关闭</li>
+<li>IP Helper：提供 IPv6 到 IPv4 的转换，不使用 IPv6 的可以关闭</li>
+<li>TCP&#x2F;IP NetBIOS Helper：提供 NetBIOS 相关功能</li>
+<li>Print 开头的三项服务：提供打印相关服务，不使用打印机的可以关闭</li>
+<li>无线网卡搜不到网络的，一般都是因为无线电管理服务被禁用了</li>
+<li>带 <code>_xxxxx</code> 后缀的服务可能在服务里调整不了，需到注册表的 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</code> 目录下调整（2 自动，3 手动，4 禁用）<ul>
+<li>BcastDVRUserService_xxx Xbox 游戏录制，根据需求选择 3&#x2F;4</li>
+<li>BluetoothUserService_xxx 蓝牙服务，建议 3</li>
+<li>ConsentUxUserSvc_xxx、DevicesFlowUserSvc_xxx、DevicePickerUserSvc_xxx、DeviceAssociationBrokerSvc_xxx、UdkUserSvc_xxx 连接设备时可能会用到，建议 3</li>
+<li>CaptureService_xxx 截图工具可能会用到的 api，建议 3</li>
+<li>cbdhsvc_xxx 剪贴板，建议 2&#x2F;3</li>
+<li>CDPUserSvc_xxx 同步用户设置、隐私等数据用的，想保护隐私的选 3，需要这项功能的选 2</li>
+<li>CredentialEnrollmentManagerUserSvc_xxx 凭据管理器，存储密码用的，建议 2&#x2F;3</li>
+<li>MessagingService_xxx 需要短信功能的 3，不用的 4</li>
+<li>UnistoreSvc_xxx、UserDataSvc_xxx、储存、访问联系人、邮件等用户数据，需要用的 3，不用的 4</li>
+<li>PimIndexMaintenanceSvc_xxx 联系人相关，用的 3，不用的 4</li>
+<li>PrintWorkflowUserSvc_xxx 打印机相关，选 3</li>
+<li>WpnUserService_xxx 推送系统通知用的，选 2</li>
+<li>OneSyncSvc、OneSyncSvc_xxxx 不需要同步的可以 4</li>
+</ul>
+</li>
+</ul>
+<h2 id="释放系统预留的-7G-空间"><a href="#释放系统预留的-7G-空间" class="headerlink" title="释放系统预留的 7G 空间"></a>释放系统预留的 7G 空间</h2><p><code>DISM.exe /Online /Set-ReservedStorageState /State:Disabled</code></p>
+<h2 id="避免微软输入法卡顿"><a href="#避免微软输入法卡顿" class="headerlink" title="避免微软输入法卡顿"></a>避免微软输入法卡顿</h2><p>右键输入法，设置 -&gt; 常规，在兼容性里选择使用以前版本的微软输入法</p>
+<h2 id="解决提示需要新应用打开此-ms-screenclip-链接"><a href="#解决提示需要新应用打开此-ms-screenclip-链接" class="headerlink" title="解决提示需要新应用打开此 ms-screenclip 链接"></a>解决提示需要新应用打开此 ms-screenclip 链接</h2><p><code>DISM /Online /Add-Capability /CapabilityName:Windows.Client.ShellComponents~~~~0.0.1.0</code></p>
+<h2 id="推荐精简版系统"><a href="#推荐精简版系统" class="headerlink" title="推荐精简版系统"></a>推荐精简版系统</h2><p>远景论坛 <strong>不忘初心</strong> 大神的各类精简版系统</p>
+<h2 id="右键菜单管理"><a href="#右键菜单管理" class="headerlink" title="右键菜单管理"></a>右键菜单管理</h2><p><a target="_blank" rel="noopener" href="https://github.com/BluePointLilac/ContextMenuManager">GitHub - BluePointLilac&#x2F;ContextMenuManager: 🖱️ 纯粹的 Windows 右键菜单管理程序</a></p>
+<h2 id="解决-AMD-CPU-卡顿的问题"><a href="#解决-AMD-CPU-卡顿的问题" class="headerlink" title="解决 AMD CPU 卡顿的问题"></a>解决 AMD CPU 卡顿的问题</h2><p>关闭 BIOS 中的 <code>AMD Platform Security Processor</code></p>
+<h2 id="Windows-11-改回-Windows-10-的右键菜单"><a href="#Windows-11-改回-Windows-10-的右键菜单" class="headerlink" title="Windows 11 改回 Windows 10 的右键菜单"></a>Windows 11 改回 Windows 10 的右键菜单</h2><p>打开 cmd 并输入 <code>reg add &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;\InprocServer32&quot; /f /ve</code> 后重启资源管理器即可生效。要恢复为 Windows 11 右键菜单，则使用命令：<code>reg delete &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;&quot; /f</code></p>
+<h2 id="CPU-响应速度优化"><a href="#CPU-响应速度优化" class="headerlink" title="CPU 响应速度优化"></a>CPU 响应速度优化</h2><p>下载软件 QuickCPU，将左下角 Core Parking、Frequency Scaling、Turbo boost、Performance 全部拉满即可。</p>
+<h2 id="加速系统响应速度"><a href="#加速系统响应速度" class="headerlink" title="加速系统响应速度"></a>加速系统响应速度</h2><p>注册表找到 <code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management</code>，根据屏幕分辨率修改 SessionPoolSize 和 SessionViewSize</p>
+<ul>
+<li>SessionPoolSize：1080P 改为 62K 改为 12，4K 改为 24</li>
+<li>SessionViewSize：1080P 改为 62，2K 改为 144，4K 改为 288</li>
+</ul>
+<h2 id="针对-Ryzen-笔记本的优化"><a href="#针对-Ryzen-笔记本的优化" class="headerlink" title="针对 Ryzen 笔记本的优化"></a>针对 Ryzen 笔记本的优化</h2><h3 id="风扇转速"><a href="#风扇转速" class="headerlink" title="风扇转速"></a>风扇转速</h3><ol>
+<li><p>使用软件 atrofac</p>
+</li>
+<li><p>点击 Edit Configuration 配置，常用的配置如下</p>
+<div class="code-wrapper"><pre><code class="hljs conf"># 极度安静
 cpu_curve:&quot;30c:0%,40c:0%,50c:0%,60c:0%,70c:10%,80c:20%,90c:60%,100c:99%&quot;
 # 中度安静
 cpu_curve: &quot;30c:5%,40c:5%,50c:5%,60c:5%,70c:30%,80c:55%,90c:78%,100c:99%&quot;
 # 玩游戏时
-cpu_curve:&quot;30c:30%,40c:30%,50c:30%,60c:30%,70c:99%,80c:99%,90c:99%,100c:99%&quot;</code></pre></div></li></ol><h3 id="开启性能模式"><a href="#开启性能模式" class="headerlink" title="开启性能模式"></a>开启性能模式</h3><ol><li>运行 regedit 打开注册表</li><li>找到 <code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\be337238-0d82-4146-a960-4f3749d470c7</code>，修改右侧 Attributes 修改值为 2</li><li>在电源管理中可以看到处理器性能提升模式，启用可以开启睿频，关闭可关闭睿频</li></ol><h3 id="调整-AMD-CPU-核显的-TDP-修正周期"><a href="#调整-AMD-CPU-核显的-TDP-修正周期" class="headerlink" title="调整 AMD CPU 核显的 TDP 修正周期"></a>调整 AMD CPU 核显的 TDP 修正周期</h3><ol><li>使用软件 <code>AMD APUTuning Utility</code></li><li>在 <code>Pre-Made Presets</code> 中找到自己的处理器应用即可</li></ol><h3 id="延长电池寿命"><a href="#延长电池寿命" class="headerlink" title="延长电池寿命"></a>延长电池寿命</h3><ol><li>使用软件 <code>MyASUS</code></li><li>设置笔记本充满电电量为 60%</li></ol><h2 id="FPS-禁用全屏优化"><a href="#FPS-禁用全屏优化" class="headerlink" title="FPS 禁用全屏优化"></a>FPS 禁用全屏优化</h2><p>打开注册表，进入 <code>计算机\HKEY_CURRENT_USER\System\GameConfigStore</code></p><ul><li>GameDVR_FSEBehaviorMode：2</li><li>GameDVR_HonorUserFSEBehaviorMode：1</li><li>GameDVR_FSEBehavior：2</li><li>GameDVR_DXGIHonorFSEWindowsCompatible：1</li></ul><h2 id="笔记本配置触控板手势"><a href="#笔记本配置触控板手势" class="headerlink" title="笔记本配置触控板手势"></a>笔记本配置触控板手势</h2><ol><li>Windows 10 进入 设置 -&gt; 设备 -&gt; 触摸板 -&gt; 高级手势配置 设置自定义手势</li><li>个人使用的设置<ul><li>三指点击：关闭 (Ctrl+W)</li><li>三指向上轻扫：向后导航</li><li>三指向下轻扫：回到桌面 (Win+D)</li><li>三指向左轻扫：切换应用 (Alt+Tab)</li><li>三指向右轻扫：切换应用 (Alt+Tab)</li><li>四指点击：播放 &#x2F; 暂停</li><li>四指向上轻扫：添加新的标签页 (Ctrl+T)</li><li>四指向下轻扫：关闭当前页面 (Ctrl+W)</li><li>四指向左轻扫：上一个标签 (Ctrl+Shift+Tab)</li><li>四指向右轻扫：下一个标签 (Ctrl+Tab)</li></ul></li></ol><h2 id="关闭-Virtualization-based-Security"><a href="#关闭-Virtualization-based-Security" class="headerlink" title="关闭 Virtualization-based Security"></a>关闭 Virtualization-based Security</h2><ol><li>按 Win+S，输入 System Information 或 msinfo32，如果 Virtualization-based security 为 Running 则已启用</li><li>按 Win+S，输入 Core Isolation，将内存完整性保护关闭</li><li>运行 regedit，进入 <code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard</code>，新建 DWORD <code>EnableVirtualizationBasedSecurity</code> 并赋值 0</li></ol><h2 id="彻底关闭-Hyper-V-虚拟机"><a href="#彻底关闭-Hyper-V-虚拟机" class="headerlink" title="彻底关闭 Hyper-V 虚拟机"></a>彻底关闭 Hyper-V 虚拟机</h2><div class="code-wrapper"><pre><code class="hljs powershell">bcdedit /<span class="hljs-built_in">set</span> hypervisorlaunchtype off</code></pre></div><h2 id="重置所有系统应用"><a href="#重置所有系统应用" class="headerlink" title="重置所有系统应用"></a>重置所有系统应用</h2><div class="code-wrapper"><pre><code class="hljs powershell"><span class="hljs-comment"># 输入 Y 并回车</span>
+cpu_curve:&quot;30c:30%,40c:30%,50c:30%,60c:30%,70c:99%,80c:99%,90c:99%,100c:99%&quot;</code></pre></div></li>
+</ol>
+<h3 id="开启性能模式"><a href="#开启性能模式" class="headerlink" title="开启性能模式"></a>开启性能模式</h3><ol>
+<li>运行 regedit 打开注册表</li>
+<li>找到 <code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\be337238-0d82-4146-a960-4f3749d470c7</code>，修改右侧 Attributes 修改值为 2</li>
+<li>在电源管理中可以看到处理器性能提升模式，启用可以开启睿频，关闭可关闭睿频</li>
+</ol>
+<h3 id="调整-AMD-CPU-核显的-TDP-修正周期"><a href="#调整-AMD-CPU-核显的-TDP-修正周期" class="headerlink" title="调整 AMD CPU 核显的 TDP 修正周期"></a>调整 AMD CPU 核显的 TDP 修正周期</h3><ol>
+<li>使用软件 <code>AMD APUTuning Utility</code></li>
+<li>在 <code>Pre-Made Presets</code> 中找到自己的处理器应用即可</li>
+</ol>
+<h3 id="延长电池寿命"><a href="#延长电池寿命" class="headerlink" title="延长电池寿命"></a>延长电池寿命</h3><ol>
+<li>使用软件 <code>MyASUS</code></li>
+<li>设置笔记本充满电电量为 60%</li>
+</ol>
+<h2 id="FPS-禁用全屏优化"><a href="#FPS-禁用全屏优化" class="headerlink" title="FPS 禁用全屏优化"></a>FPS 禁用全屏优化</h2><p>打开注册表，进入 <code>计算机\HKEY_CURRENT_USER\System\GameConfigStore</code></p>
+<ul>
+<li>GameDVR_FSEBehaviorMode：2</li>
+<li>GameDVR_HonorUserFSEBehaviorMode：1</li>
+<li>GameDVR_FSEBehavior：2</li>
+<li>GameDVR_DXGIHonorFSEWindowsCompatible：1</li>
+</ul>
+<h2 id="笔记本配置触控板手势"><a href="#笔记本配置触控板手势" class="headerlink" title="笔记本配置触控板手势"></a>笔记本配置触控板手势</h2><ol>
+<li>Windows 10 进入 设置 -&gt; 设备 -&gt; 触摸板 -&gt; 高级手势配置 设置自定义手势</li>
+<li>个人使用的设置<ul>
+<li>三指点击：关闭 (Ctrl+W)</li>
+<li>三指向上轻扫：向后导航</li>
+<li>三指向下轻扫：回到桌面 (Win+D)</li>
+<li>三指向左轻扫：切换应用 (Alt+Tab)</li>
+<li>三指向右轻扫：切换应用 (Alt+Tab)</li>
+<li>四指点击：播放 &#x2F; 暂停</li>
+<li>四指向上轻扫：添加新的标签页 (Ctrl+T)</li>
+<li>四指向下轻扫：关闭当前页面 (Ctrl+W)</li>
+<li>四指向左轻扫：上一个标签 (Ctrl+Shift+Tab)</li>
+<li>四指向右轻扫：下一个标签 (Ctrl+Tab)</li>
+</ul>
+</li>
+</ol>
+<h2 id="关闭-Virtualization-based-Security"><a href="#关闭-Virtualization-based-Security" class="headerlink" title="关闭 Virtualization-based Security"></a>关闭 Virtualization-based Security</h2><ol>
+<li>按 Win+S，输入 System Information 或 msinfo32，如果 Virtualization-based security 为 Running 则已启用</li>
+<li>按 Win+S，输入 Core Isolation，将内存完整性保护关闭</li>
+<li>运行 regedit，进入 <code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard</code>，新建 DWORD <code>EnableVirtualizationBasedSecurity</code> 并赋值 0</li>
+</ol>
+<h2 id="彻底关闭-Hyper-V-虚拟机"><a href="#彻底关闭-Hyper-V-虚拟机" class="headerlink" title="彻底关闭 Hyper-V 虚拟机"></a>彻底关闭 Hyper-V 虚拟机</h2><div class="code-wrapper"><pre><code class="hljs powershell">bcdedit /<span class="hljs-built_in">set</span> hypervisorlaunchtype off</code></pre></div>
+
+<h2 id="重置所有系统应用"><a href="#重置所有系统应用" class="headerlink" title="重置所有系统应用"></a>重置所有系统应用</h2><div class="code-wrapper"><pre><code class="hljs powershell"><span class="hljs-comment"># 输入 Y 并回车</span>
 <span class="hljs-built_in">Set-ExecutionPolicy</span> Unrestricted
 <span class="hljs-built_in">Get-AppXPackage</span> <span class="hljs-literal">-AllUsers</span> | <span class="hljs-keyword">Foreach</span> &#123;<span class="hljs-built_in">Add-AppxPackage</span> <span class="hljs-literal">-DisableDevelopmentMode</span> <span class="hljs-literal">-Register</span> <span class="hljs-string">&quot;<span class="hljs-variable">$</span>(<span class="hljs-variable">$_</span>.InstallLocation)\AppXManifest.xml&quot;</span>&#125;
-<span class="hljs-built_in">Get-AppxPackage</span> Microsoft.SecHealthUI <span class="hljs-literal">-AllUsers</span> | <span class="hljs-built_in">Reset-AppxPackage</span></code></pre></div><h2 id="关闭笔记本-S0-睡眠状态"><a href="#关闭笔记本-S0-睡眠状态" class="headerlink" title="关闭笔记本 S0 睡眠状态"></a>关闭笔记本 S0 睡眠状态</h2><div class="code-wrapper"><pre><code class="hljs powershell"><span class="hljs-comment"># 查询系统固件支持哪些睡眠状态</span>
+<span class="hljs-built_in">Get-AppxPackage</span> Microsoft.SecHealthUI <span class="hljs-literal">-AllUsers</span> | <span class="hljs-built_in">Reset-AppxPackage</span></code></pre></div>
+
+<h2 id="关闭笔记本-S0-睡眠状态"><a href="#关闭笔记本-S0-睡眠状态" class="headerlink" title="关闭笔记本 S0 睡眠状态"></a>关闭笔记本 S0 睡眠状态</h2><div class="code-wrapper"><pre><code class="hljs powershell"><span class="hljs-comment"># 查询系统固件支持哪些睡眠状态</span>
 powercfg /a
 <span class="hljs-comment"># 关闭 S0 睡眠状态</span>
 reg add <span class="hljs-string">&quot;HKLM\System\CurrentControlSet\Control\Power&quot;</span> /v PlatformAoAcOverride /t REG_DWORD /d <span class="hljs-number">0</span>
 <span class="hljs-comment"># 重新开启 S0 睡眠状态</span>
-reg delete <span class="hljs-string">&quot;HKLM\System\CurrentControlSet\Control\Power&quot;</span> /v PlatformAoAcOverride /f</code></pre></div><h2 id="优化系统-MTU"><a href="#优化系统-MTU" class="headerlink" title="优化系统 MTU"></a>优化系统 MTU</h2><div class="code-wrapper"><pre><code class="hljs powershell"><span class="hljs-comment"># 查看当前使用的 MTU 大小</span>
+reg delete <span class="hljs-string">&quot;HKLM\System\CurrentControlSet\Control\Power&quot;</span> /v PlatformAoAcOverride /f</code></pre></div>
+
+<h2 id="优化系统-MTU"><a href="#优化系统-MTU" class="headerlink" title="优化系统 MTU"></a>优化系统 MTU</h2><div class="code-wrapper"><pre><code class="hljs powershell"><span class="hljs-comment"># 查看当前使用的 MTU 大小</span>
 netsh interface ipv4 show subinterfaces
 <span class="hljs-comment"># 使 -l 后的参数最大但可 ping 通</span>
 ping baidu.com <span class="hljs-operator">-f</span> <span class="hljs-literal">-l</span> <span class="hljs-number">1464</span>
 <span class="hljs-comment"># 将得到的数值加 28</span>
 <span class="hljs-comment"># 本机设置, 也可在路由器设置</span>
-netsh int ipv4 <span class="hljs-built_in">set</span> subinterface <span class="hljs-string">&quot;本地连接&quot;</span> mtu=<span class="hljs-number">1492</span> store=persistent</code></pre></div></div><hr><div><div class="post-metas my-3"><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/hexo-blog/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="print-no-link">#性能优化</a> <a href="/hexo-blog/tags/Windows/" class="print-no-link">#Windows</a></div></div><div class="license-box my-3"><div class="license-title"><div>Windows 系统新装优化指南</div><div>https://schenga39.github.io/hexo-blog/2023/05/07/Windows-系统新装优化指南/</div></div><div class="license-meta"><div class="license-meta-item license-meta-date"><div>发布于</div><div>2023年5月8日</div></div><div class="license-meta-item"><div>许可协议</div><div><a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/"><span class="hint--top hint--rounded" aria-label="BY - 署名"><i class="iconfont icon-by"></i></span></a></div></div></div><div class="license-icon iconfont"></div></div><div class="post-prevnext my-3"><article class="post-prev col-6"><a href="/hexo-blog/2023/06/11/Linux-sysctl-%E8%B0%83%E4%BC%98%E5%AE%9E%E6%88%98/" title="Linux sysctl 调优实战"><i class="iconfont icon-arrowleft"></i> <span class="hidden-mobile">Linux sysctl 调优实战</span> <span class="visible-mobile">上一篇</span></a></article><article class="post-next col-6"><a href="/hexo-blog/2023/04/29/%E5%85%B3%E4%BA%8E-Project-Sekai-%E9%94%81%E5%8C%BA%E5%92%8C%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E6%B8%B8%E6%88%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="关于 Project Sekai 锁区和无法进入游戏的解决方案"><span class="hidden-mobile">关于 Project Sekai 锁区和无法进入游戏的解决方案</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></article></div></div></article></div></div></div><div class="side-col d-none d-lg-block col-lg-2"><aside class="sidebar" style="margin-left:-1rem"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i> <span>目录</span></p><div class="toc-body" id="toc-body"></div></div></aside></div></div></div><a id="scroll-top-button" aria-label="TOP" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div></main><footer><div class="footer-inner"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></div></footer><script src="/hexo-blog/lib/nprogress.min.js"></script><link rel="stylesheet" href="/hexo-blog/lib/nprogress.min.css"><script>NProgress.configure({showSpinner:!1,trickleSpeed:100}),NProgress.start(),window.addEventListener("load",(function(){NProgress.done()}))</script><script defer src="/hexo-blog/lib/jquery.min.js"></script><script defer src="/hexo-blog/lib/bootstrap.min.js"></script><script defer src="/hexo-blog/js/events_plugins_combined.js"></script><script defer src="/hexo-blog/js/img-lazyload.js"></script><script>Fluid.utils.createScript("https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.1/tocbot.min.js",(function(){var t=jQuery("#toc");if(0!==t.length&&window.tocbot){var o=jQuery("#board-ctn").offset().top;window.tocbot.init(Object.assign({tocSelector:"#toc-body",contentSelector:".markdown-body",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",scrollSmooth:!0,includeTitleTags:!0,headingsOffset:-o},CONFIG.toc)),t.find(".toc-list-item").length>0&&t.css("visibility","visible"),Fluid.events.registerRefreshCallback((function(){if("tocbot"in window){tocbot.refresh();var t=jQuery("#toc");if(0===t.length||!tocbot)return;t.find(".toc-list-item").length>0&&t.css("visibility","visible")}}))}}))</script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script><script>Fluid.plugins.codeWidget()</script><script>Fluid.utils.createScript("https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js",(function(){window.anchors.options={placement:CONFIG.anchorjs.placement,visible:CONFIG.anchorjs.visible},CONFIG.anchorjs.icon&&(window.anchors.options.icon=CONFIG.anchorjs.icon);var n=(CONFIG.anchorjs.element||"h1,h2,h3,h4,h5,h6").split(","),o=[];for(var s of n)o.push(".markdown-body > "+s.trim());"left"===CONFIG.anchorjs.placement&&(window.anchors.options.class="anchorjs-link-left"),window.anchors.add(o.join(", ")),Fluid.events.registerRefreshCallback((function(){if("anchors"in window){anchors.removeAll();var n=(CONFIG.anchorjs.element||"h1,h2,h3,h4,h5,h6").split(","),o=[];for(var s of n)o.push(".markdown-body > "+s.trim());"left"===CONFIG.anchorjs.placement&&(anchors.options.class="anchorjs-link-left"),anchors.add(o.join(", "))}}))}))</script><script>Fluid.utils.createScript("https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js",(function(){Fluid.plugins.fancyBox()}))</script><script>Fluid.plugins.imageCaption()</script><script src="/hexo-blog/js/local-search.js"></script><script>Fluid.boot={},Fluid.boot.registerEvents=function(){Fluid.events.billboard(),Fluid.events.registerNavbarEvent(),Fluid.events.registerParallaxEvent(),Fluid.events.registerScrollDownArrowEvent(),Fluid.events.registerScrollTopArrowEvent(),Fluid.events.registerImageLoadedEvent()},Fluid.boot.refresh=function(){Fluid.plugins.fancyBox(),Fluid.plugins.codeWidget(),Fluid.events.refresh()},document.addEventListener("DOMContentLoaded",(function(){Fluid.boot.registerEvents()}))</script><noscript><div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div></noscript></body></html>
+netsh int ipv4 <span class="hljs-built_in">set</span> subinterface <span class="hljs-string">&quot;本地连接&quot;</span> mtu=<span class="hljs-number">1492</span> store=persistent</code></pre></div>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/hexo-blog/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="print-no-link">#性能优化</a>
+      
+        <a href="/hexo-blog/tags/Windows/" class="print-no-link">#Windows</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Windows 系统新装优化指南</div>
+      <div>https://schenga39.github.io/hexo-blog/2023/05/07/Windows-系统新装优化指南/</div>
+    </div>
+    <div class="license-meta">
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/hexo-blog/2023/06/11/Linux-sysctl-%E8%B0%83%E4%BC%98%E5%AE%9E%E6%88%98/" title="Linux sysctl 调优实战">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux sysctl 调优实战</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/hexo-blog/2023/04/29/%E5%85%B3%E4%BA%8E-Project-Sekai-%E9%94%81%E5%8C%BA%E5%92%8C%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E6%B8%B8%E6%88%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="关于 Project Sekai 锁区和无法进入游戏的解决方案">
+                        <span class="hidden-mobile">关于 Project Sekai 锁区和无法进入游戏的解决方案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <!-- <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script> -->
+  <!-- <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" /> -->
+  <script  src="/hexo-blog/lib/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="/hexo-blog/lib/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" ></script> -->
+<!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script> -->
+<script defer src="/hexo-blog/lib/jquery.min.js" ></script>
+<script defer src="/hexo-blog/lib/bootstrap.min.js" ></script>
+
+<!-- <script defer src="/hexo-blog/js/events.js" ></script> -->
+<!-- <script defer src="/hexo-blog/js/plugins.js" ></script> -->
+<script defer src="/hexo-blog/js/events_plugins_combined.js" ></script>
+
+
+
+
+
+  
+    <script defer src="/hexo-blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/hexo-blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<!-- <script defer src="/hexo-blog/js/boot.js" ></script> -->
+<script>
+/* global Fluid */
+
+Fluid.boot = {};
+
+Fluid.boot.registerEvents = function() {
+  Fluid.events.billboard();
+  Fluid.events.registerNavbarEvent();
+  Fluid.events.registerParallaxEvent();
+  Fluid.events.registerScrollDownArrowEvent();
+  Fluid.events.registerScrollTopArrowEvent();
+  Fluid.events.registerImageLoadedEvent();
+};
+
+Fluid.boot.refresh = function() {
+  Fluid.plugins.fancyBox();
+  Fluid.plugins.codeWidget();
+  Fluid.events.refresh();
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  Fluid.boot.registerEvents();
+});
+</script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
