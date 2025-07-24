@@ -41,8 +41,9 @@ var ogConfig = Object.assign({ image: ogImage && url_for(ogImage) }, theme.open_
 
   <%- partial('_partials/css.ejs') %>
   <%- export_config() %>
-  <%- js_ex(theme.static_prefix.internal_js, 'utils.js', 'defer') %>
-  <%- js_ex(theme.static_prefix.internal_js, 'color-schema.js', 'defer') %>
+  <%- js_ex(theme.static_prefix.internal_js, 'color-schema_utils_combined.js', 'defer') %>
+  <!-- <%- js_ex(theme.static_prefix.internal_js, 'utils.js', 'defer') %> -->
+  <!-- <%- js_ex(theme.static_prefix.internal_js, 'color-schema.js', 'defer') %> -->
   <%- partial('_partials/plugins/analytics.ejs') %>
 
   <%- inject_point('head') %>
