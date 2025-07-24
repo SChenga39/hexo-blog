@@ -366,7 +366,7 @@ codeblock:
     dark: prism-dark
   # Add copy button on codeblock
   copy_button:
-    enable: true
+    enable: false
     # Available values: default | flat | mac
     style: default
   # Fold code block
@@ -385,7 +385,7 @@ back2top:
 
 # Reading progress bar
 reading_progress:
-  enable: false
+  enable: true
   # Available values: left | right
   start_at: left
   # Available values: top | bottom
