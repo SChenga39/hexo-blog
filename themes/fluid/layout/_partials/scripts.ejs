@@ -5,7 +5,7 @@
 <%- js_ex(theme.static_prefix.internal_js, 'events.js', 'defer') %>
 <%- js_ex(theme.static_prefix.internal_js, 'plugins.js', 'defer') %>
 
-<%- partial('_partials/plugins/typed.ejs', { async: true }) %>
+<%- partial('_partials/plugins/typed.ejs') %>
 
 <% if (theme.lazyload.enable){ %>
   <% if (theme.lazyload.onlypost) { %>
@@ -29,4 +29,28 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<%- js_ex(theme.static_prefix.internal_js, 'boot.js', 'defer') %>
+<!-- <%- js_ex(theme.static_prefix.internal_js, 'boot.js', 'defer') %> -->
+<script>
+/* global Fluid */
+
+Fluid.boot = {};
+
+Fluid.boot.registerEvents = function() {
+  Fluid.events.billboard();
+  Fluid.events.registerNavbarEvent();
+  Fluid.events.registerParallaxEvent();
+  Fluid.events.registerScrollDownArrowEvent();
+  Fluid.events.registerScrollTopArrowEvent();
+  Fluid.events.registerImageLoadedEvent();
+};
+
+Fluid.boot.refresh = function() {
+  Fluid.plugins.fancyBox();
+  Fluid.plugins.codeWidget();
+  Fluid.events.refresh();
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  Fluid.boot.registerEvents();
+});
+</script>
