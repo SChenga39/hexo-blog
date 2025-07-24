@@ -55,6 +55,7 @@
               <i class="iconfont icon-search"></i>
             </a>
           </li>
+          <% import_js(theme.static_prefix.internal_lib, 'jquery.min.js') %>
           <% import_js(theme.static_prefix.internal_js, 'local-search.js') %>
         <% } %>
         <% if(theme.dark_mode && theme.dark_mode.enable) { %>
