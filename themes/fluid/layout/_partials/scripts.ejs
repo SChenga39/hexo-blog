@@ -1,18 +1,19 @@
 <%- partial('_partials/plugins/nprogress.ejs') %>
-<%- js_ex(theme.static_prefix.jquery, 'jquery.min.js') %>
-<%- js_ex(theme.static_prefix.bootstrap, 'js/bootstrap.min.js') %>
-<%- js_ex(theme.static_prefix.internal_js, 'events.js') %>
-<%- js_ex(theme.static_prefix.internal_js, 'plugins.js') %>
+<%- js_ex(theme.static_prefix.jquery, 'jquery.min.js', 'defer') %>
+<%- js_ex(theme.static_prefix.bootstrap, 'js/bootstrap.min.js', 'defer') %>
 
-<%- partial('_partials/plugins/typed.ejs') %>
+<%- js_ex(theme.static_prefix.internal_js, 'events.js', 'defer') %>
+<%- js_ex(theme.static_prefix.internal_js, 'plugins.js', 'defer') %>
+
+<%- partial('_partials/plugins/typed.ejs', { async: true }) %>
 
 <% if (theme.lazyload.enable){ %>
   <% if (theme.lazyload.onlypost) { %>
     <% if (is_post() || is_page()) { %>
-      <%- js_ex(theme.static_prefix.internal_js, 'img-lazyload.js') %>
+      <%- js_ex(theme.static_prefix.internal_js, 'img-lazyload.js', 'defer') %>
     <% } %>
   <% } else { %>
-    <%- js_ex(theme.static_prefix.internal_js, 'img-lazyload.js') %>
+    <%- js_ex(theme.static_prefix.internal_js, 'img-lazyload.js', 'defer') %>
   <% } %>
 <% } %>
 
@@ -28,4 +29,4 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<%- js_ex(theme.static_prefix.internal_js, 'boot.js') %>
+<%- js_ex(theme.static_prefix.internal_js, 'boot.js', 'defer') %>
