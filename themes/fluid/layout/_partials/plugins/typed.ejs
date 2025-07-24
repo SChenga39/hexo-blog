@@ -1,5 +1,6 @@
 <% if(theme.fun_features.typing.enable && in_scope(theme.fun_features.typing.scope) && page.subtitle !== false) { %>
-  <%- js_ex(theme.static_prefix.typed, '/typed.min.js', 'defer') %>
+  <!-- <%- js_ex(theme.static_prefix.typed, '/typed.min.js', 'defer') %> -->
+  <%- js_ex(theme.static_prefix.internal_lib, '/typed.min.js', 'defer') %>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
