@@ -8,7 +8,18 @@
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 <!-- Do not modify the link that theme dependent icons -->
-<%- css('//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css') %>
+<!-- <%- css('//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css', { media: 'print', onload: 'this.media="all"' }) %> -->
+<!-- <%- css('//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css') %> -->
+<!-- <style>
+  @font-face {
+    font-family: 'iconfont';
+    src: url('//at.alicdn.com/t/font_1749284_hj8rtnfg7um.woff2') format('woff2'),
+         url('//at.alicdn.com/t/font_1749284_hj8rtnfg7um.woff') format('woff');
+    font-display: swap;
+  }
+  /* 其他图标相关样式（从原始 CSS 复制） */
+</style> -->
+<%- css_ex(theme.static_prefix.internal_css, 'font_1749284_hj8rtnfg7um.css') %>
 
 <%- css(theme.static_prefix.iconfont || theme.iconfont) %>
 
