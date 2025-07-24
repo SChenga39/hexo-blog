@@ -56,7 +56,7 @@
             </a>
           </li>
           <!-- Inline jquery to the local-search.js -->
-          <% import_js(theme.static_prefix.internal_js, 'local-search.js', '') %>
+          <% import_js(theme.static_prefix.internal_js, 'local-search.js', 'defer') %>
         <% } %>
         <% if(theme.dark_mode && theme.dark_mode.enable) { %>
           <li class="nav-item" id="color-toggle-btn">
