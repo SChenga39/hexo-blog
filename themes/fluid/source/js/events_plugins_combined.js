@@ -1,3 +1,4 @@
+// events.js
 /* global Fluid */
 
 HTMLElement.prototype.wrap = function(wrapper) {
@@ -183,6 +184,7 @@ Fluid.events = {
   }
 };
 
+// plugins.js
 /* global Fluid, CONFIG */
 
 HTMLElement.prototype.wrap = function(wrapper) {
